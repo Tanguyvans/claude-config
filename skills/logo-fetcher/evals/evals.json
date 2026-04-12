@@ -1,0 +1,89 @@
+{
+  "skill_name": "logo-fetcher",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Fais moi une slide sur Anthropic, je veux leur logo dessus",
+      "expected_output": "Claude télécharge le logo d'Anthropic via img.logo.dev/anthropic.com et le sauvegarde en PNG",
+      "assertions": [
+        {
+          "name": "config_loaded",
+          "type": "output_contains",
+          "value": "source ~/.config/logo-fetcher/config.env",
+          "description": "Claude charge la config avec la clé API"
+        },
+        {
+          "name": "correct_domain",
+          "type": "output_contains",
+          "value": "anthropic.com",
+          "description": "Claude utilise le bon domaine pour Anthropic"
+        },
+        {
+          "name": "logo_downloaded",
+          "type": "file_exists",
+          "value": "anthropic_logo.png",
+          "description": "Le fichier logo PNG est créé"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Télécharge les logos de Facebook, Google et Apple pour ma présentation",
+      "expected_output": "Claude télécharge 3 logos en batch via l'API Logo.dev avec les bons domaines",
+      "assertions": [
+        {
+          "name": "facebook_logo",
+          "type": "file_exists",
+          "value": "facebook_logo.png",
+          "description": "Logo Facebook téléchargé"
+        },
+        {
+          "name": "google_logo",
+          "type": "file_exists",
+          "value": "google_logo.png",
+          "description": "Logo Google téléchargé"
+        },
+        {
+          "name": "apple_logo",
+          "type": "file_exists",
+          "value": "apple_logo.png",
+          "description": "Logo Apple téléchargé"
+        },
+        {
+          "name": "batch_download",
+          "type": "manual",
+          "value": "Les 3 logos sont téléchargés efficacement",
+          "description": "Claude télécharge les logos en batch plutôt qu'un par un"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "J'ai besoin du logo de Stripe pour une slide sur fond noir",
+      "expected_output": "Claude utilise le paramètre theme=dark pour adapter le logo au fond sombre",
+      "assertions": [
+        {
+          "name": "dark_theme",
+          "type": "output_contains",
+          "value": "theme=dark",
+          "description": "Claude utilise le paramètre theme=dark pour le fond sombre"
+        },
+        {
+          "name": "correct_domain",
+          "type": "output_contains",
+          "value": "stripe.com",
+          "description": "Claude utilise le bon domaine pour Stripe"
+        },
+        {
+          "name": "logo_downloaded",
+          "type": "file_exists",
+          "value": "stripe_logo.png",
+          "description": "Le fichier logo est créé"
+        }
+      ],
+      "files": []
+    }
+  ]
+}

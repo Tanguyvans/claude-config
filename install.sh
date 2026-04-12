@@ -10,7 +10,7 @@ CLAUDE_DIR="$HOME/.claude"
 echo "Installing claude-config from $REPO_DIR -> $CLAUDE_DIR"
 
 # Directories to symlink
-DIRS=(agents commands contexts scripts)
+DIRS=(agents commands contexts scripts skills)
 
 for dir in "${DIRS[@]}"; do
   if [ -d "$REPO_DIR/$dir" ]; then

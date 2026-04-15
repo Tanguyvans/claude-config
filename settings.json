@@ -1,10 +1,67 @@
 {
+  "env": {
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1"
+  },
   "permissions": {
     "allow": [
       "mcp__pencil"
     ]
   },
   "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude",
+            "timeout": 86400
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/tanguyvans/.claude/hooks/gsd-context-monitor.js\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Write",
@@ -12,6 +69,102 @@
           {
             "type": "command",
             "command": "node -e \"const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path||'';if(/\\.(md|txt)$/.test(p)&&!/(README|CLAUDE|AGENTS|CONTRIBUTING)\\.md$/.test(p)){console.error('[Hook] BLOCKED: Unnecessary documentation file creation');console.error('[Hook] File: '+p);console.error('[Hook] Use README.md for documentation instead');process.exit(1)}console.log(d)})\""
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/tanguyvans/.claude/hooks/gsd-prompt-guard.js\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.claude/hooks/obsidian-session-log.sh",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/tanguyvans/.claude/hooks/gsd-check-update.js\""
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/tanguyvans/.vibe-island/bin/vibe-island-bridge --source claude"
           }
         ]
       }
@@ -22,14 +175,25 @@
     "command": "~/.claude/scripts/context-bar.sh"
   },
   "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": false,
+    "context7@claude-plugins-official": false,
     "document-skills@anthropic-agent-skills": true,
+    "feature-dev@claude-plugins-official": false,
+    "frontend-design@claude-plugins-official": true,
+    "github@claude-plugins-official": false,
+    "huggingface-skills@claude-plugins-official": false,
     "impeccable@impeccable": true,
+    "last30days@last30days-skill": true,
+    "obsidian@obsidian-skills": true,
+    "pyright-lsp@claude-plugins-official": false,
+    "ralph-loop@claude-plugins-official": false,
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "last30days@last30days-skill": true
+    "security-guidance@claude-plugins-official": false,
+    "supabase@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": true,
+    "minimax-skills@minimax-skills": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -42,6 +206,12 @@
       "source": {
         "source": "github",
         "repo": "mvanhorn/last30days-skill"
+      }
+    },
+    "minimax-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/MiniMax-AI/skills.git"
       }
     }
   },

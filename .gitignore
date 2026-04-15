@@ -1,2 +1,22 @@
 .DS_Store
-.env
+*.env
+.env.*
+
+# Sensitive / ephemeral
+history.jsonl
+statsig/
+todos/
+scheduled-tasks/
+worktrees/
+.claude/
+
+# Plugins (managed by marketplace, too large)
+plugins/
+
+# GSD (installed via plugin, ~370K)
+commands/gsd/
+commands/gsd*.md
+agents/gsd-*.md
+
+# OS
+Thumbs.db

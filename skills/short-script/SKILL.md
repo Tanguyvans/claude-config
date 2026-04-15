@@ -50,12 +50,15 @@ Le style est conversationnel, direct, en français parlé. On tutoie le spectate
 
 Marqueurs de style :
 - Tutoiement systématique
-- Phrases courtes, mais toujours complètes et naturelles à l'oral — chaque phrase doit sonner comme si tu la disais vraiment devant une caméra, avec les mots de liaison nécessaires pour que ça coule
-- Tirets longs (—) pour les incises et les ruptures de rythme
+- Phrases courtes, mais toujours complètes et naturelles à l'oral. Chaque phrase doit sonner comme si tu la disais vraiment devant une caméra, avec les mots de liaison nécessaires pour que ça coule
+- JAMAIS de tirets longs (—). Utiliser des virgules, des points, ou reformuler la phrase
+- JAMAIS de deux-points (:) dans le corps du script. Reformuler en phrase complète
 - Mots anglais gardés tels quels quand c'est naturel (hook, screen, tool, benchmark, token, vibe-coding)
-- Pas de formules creuses — on rentre directement dans le vif
-- Pas de "ensuite", "de plus", "par ailleurs" — les transitions sont implicites
-- Pas d'énumérations de tools ou de listes — on ne fait pas un catalogue. Si on parle de plusieurs outils, on les intègre dans le flux du discours naturellement, ou on se concentre sur un seul et on mentionne les autres en passant
+- Pas de formules creuses, on rentre directement dans le vif
+- Pas de "ensuite", "de plus", "par ailleurs", les transitions sont implicites
+- Pas de questions rhétoriques dans le corps du script, uniquement dans le hook
+- Pas d'énumérations de tools ou de listes. On ne fait pas un catalogue. Si on parle de plusieurs outils, on les intègre dans le flux du discours naturellement, ou on se concentre sur un seul et on mentionne les autres en passant
+- Pas de jargon technique inaccessible (DOM, getBoundingClientRect, CJK...) sauf si le public est explicitement dev. Adapter au public TikTok tech généraliste
 
 ## Le HOOK — arrêter le scroll
 
@@ -89,13 +92,12 @@ Quand on mentionne une commande, un chiffre, ou un résultat visuel, on ajoute l
 
 ## Le CTA — court et direct
 
-Le CTA fait 1-2 phrases max. Il inclut toujours un appel à l'abonnement.
+Le CTA fait 1-2 phrases max. Le CTA par défaut est : **"Voilà l'URL et à demain."** C'est le format habituel du créateur, utilise-le sauf demande contraire.
 
-Patterns qui marchent :
+Autres patterns possibles (seulement si l'utilisateur le demande) :
 - "Lien en commentaire. Abonne-toi."
 - "Commente '[mot-clé]' pour le lien. Abonne-toi."
 - "Dis-moi en commentaire [question]. Abonne-toi."
-- "Voilà l'URL et à demain pour une prochaine vidéo."
 
 ## Contrainte de longueur
 
@@ -112,20 +114,46 @@ Si le sujet est dense, coupe des détails plutôt que de dépasser. La concision
 
 Quand on te donne un sujet :
 
-1. Identifie la catégorie (repo, news, tuto, comparatif)
-2. Choisis le type de hook le plus adapté — varie les approches d'un script à l'autre
-3. Écris le script complet en respectant le format exact
-4. Vérifie le nombre de mots du script — doit être entre 80 et 130
-5. Si c'est trop long, coupe. Chaque phrase doit mériter sa place
+1. **Lire GOTCHAS.md** et FEEDBACK.md avant toute génération
+2. **Rechercher du contexte** : si le sujet est un repo GitHub, lire le README réel (pas juste un résumé). Si c'est une news, chercher les réactions/tweets viraux pour trouver le meilleur angle
+3. Identifie la catégorie (repo, news, tuto, comparatif)
+4. **Proposer 3+ options de hook** avec des angles variés (curiosité, frustration, nouveauté...). Attendre la validation de l'utilisateur avant d'écrire le script complet
+5. Si plusieurs angles sont possibles pour le corps, **demander l'angle principal** avant d'écrire
+6. Écris le script complet en respectant le format exact
+7. **Fact-check** : vérifier chaque affirmation technique contre la source réelle. Ne pas reprendre les claims d'un résumé sans vérifier. Nommer les benchmarks quand on cite un score
+8. **Passe anti-répétition** : relire le script pour éliminer les mots/structures répétés ("Le repo", "Il", "aussi")
+9. Vérifie le nombre de mots du script, doit être entre 80 et 130
+10. **Checklist pré-livraison** (voir ci-dessous)
+11. Si c'est trop long, coupe. Chaque phrase doit mériter sa place
+
+## Checklist pré-livraison
+
+Avant de livrer le script, vérifier chaque point :
+
+- [ ] Aucun tiret long (—) dans le script
+- [ ] Aucun deux-points (:) dans le corps du script
+- [ ] CTA = "Voilà l'URL et à demain." (sauf demande contraire)
+- [ ] Hook crée une tension émotionnelle (pas juste descriptif)
+- [ ] Pas de questions rhétoriques dans le corps
+- [ ] Chaque affirmation technique est vérifiée contre la source
+- [ ] Pas de jargon inaccessible pour un public TikTok généraliste
+- [ ] Pas de répétitions de mots/structures dans le corps
+- [ ] Indications visuelles *(screen : ...)* présentes dans le corps
+- [ ] Nombre de mots entre 80 et 130
+- [ ] Pas d'énumérations type catalogue
 
 ## Ce qu'il faut éviter
 
 - Utiliser des titres `##` pour les sections du script au lieu du format `**[SECTION - indication]**`
 - Dépasser 130 mots de script
 - Les intros qui contextualisent trop ("Aujourd'hui on va parler de...")
-- Les phrases trop longues — si tu dois reprendre ton souffle en lisant à voix haute, coupe
+- Les phrases trop longues. Si tu dois reprendre ton souffle en lisant à voix haute, coupe
 - Les CTA de plus de 2 phrases
 - Les hooks de plus de 2 phrases
+- Les hooks descriptifs/plats ("Ce repo te montre..."). Le hook doit créer un manque, une erreur, une promesse forte
 - Oublier les indications visuelles *(screen : ...)* dans le corps
-- Les énumérations de tools ("on va utiliser X, Y et Z") — c'est un script parlé, pas une slide de présentation
-- Les phrases télégraphiques ou incomplètes qui sonnent comme des notes — chaque phrase doit être prononçable naturellement à l'oral, avec ses articles, ses verbes et ses liaisons
+- Les énumérations de tools ("on va utiliser X, Y et Z"). C'est un script parlé, pas une slide de présentation
+- Les phrases télégraphiques ou incomplètes qui sonnent comme des notes. Chaque phrase doit être prononçable naturellement à l'oral, avec ses articles, ses verbes et ses liaisons
+- Reprendre les chiffres bruts sans contexte ("500 textes", "0.09ms"). Préférer des formulations relatives ("quasi instantané", "sans que ça rame")
+- Mentionner le développeur ou les détails d'implémentation sauf si c'est pertinent pour le spectateur
+- Utiliser du jargon technique (DOM, getBoundingClientRect, CJK, soft hyphens) pour un public généraliste

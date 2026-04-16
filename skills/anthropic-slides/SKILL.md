@@ -8,6 +8,38 @@ description: Generate Remotion video slides with Anthropic's visual design langu
 
 # Anthropic-Style Remotion Video Slides
 
+## Règles dures
+
+- **TOUJOURS demander ou suggérer un thème au démarrage** — ne jamais defaulter silencieusement sur Anthropic
+- **Si le sujet jure visuellement avec le style Anthropic** (ex: caveman, terminal, dark hacker) → proposer un thème adapté
+- **Un thème = un seul fichier `theme.ts` à swapper** — les slides importent toutes depuis `theme.ts`
+
+## Choisir un thème
+
+Au démarrage, avant de générer quoi que ce soit :
+
+1. **Demander** : "Quel thème visuel ? `anthropic` (pastels doux), `brutalist` (noir/blanc, typo dure), `terminal` (vert sur noir), `cave` (textures stone/sépia)" — ou proposer un thème adapté au sujet.
+2. **Si le sujet est évocateur** → suggérer le thème le plus cohérent et demander confirmation.
+3. **Swap de thème = un seul fichier** : toutes les slides importent depuis `../theme.ts`, donc changer de thème = remplacer `theme.ts` uniquement.
+
+### Thèmes disponibles
+
+| Thème | Ambiance | Couleurs clés | Usage typique |
+|-------|----------|---------------|---------------|
+| `anthropic` | Pastels doux, clean | `#FAFAF8`, Inter, ombres douces | Produits SaaS, Claude brand |
+| `brutalist` | Noir/blanc, typo dure | `#000`, `#FFF`, borders épaisses | Dev tools, punk, contrasté |
+| `terminal` | Retro terminal | `#0D1117`, `#00FF41`, monospace | CLI tools, hacker, code |
+| `cave` | Stone, sépia, warm | `#D4A96A`, `#3D2B1F`, textured | Caveman, histoire, raw |
+
+Chaque thème est un fichier `themes/{nom}.ts` qui exporte `COLORS`, `TYPOGRAPHY`, `LAYOUT`. Le `theme.ts` principal réexporte le thème choisi :
+
+```typescript
+// theme.ts — swap ici pour changer de thème
+export * from './themes/anthropic';
+// export * from './themes/terminal';
+// export * from './themes/brutalist';
+```
+
 ## Design System
 
 ### Color Palette

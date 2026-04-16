@@ -10,6 +10,12 @@ metadata:
 
 Generate images and videos using state-of-the-art AI models on fal.ai.
 
+## Règles dures
+
+- **Si un fichier `theme.ts` existe dans le projet**, lire sa palette (couleurs, style) avant de rédiger le prompt — ne jamais ignorer le design system existant
+- **FAL_KEY doit être rechargée explicitement** si elle n'est pas dans l'environnement courant : vérifier `.env` du projet ou `~/.claude/skills/fal-generate/.env`
+- **`--add-fal-key` sans argument** ne fait rien d'utile — toujours guider l'utilisateur vers la syntaxe complète : `export FAL_KEY=your_key` ou éditer le `.env`
+
 ## Scripts
 
 | Script | Purpose |
@@ -237,6 +243,14 @@ https://fal.ai/api/openapi/queue/openapi.json?endpoint_id={model-id}
 }
 ```
 
+## Générer pour un projet Remotion
+
+Si le projet courant contient un `theme.ts` (palette, couleurs, style), **lire ce fichier avant de rédiger le prompt**. Le prompt doit refléter le design system existant : fond, style illustration, ambiance chromatique.
+
+Exemple : si `theme.ts` définit `background: '#F5F0E8'` et des blocs `blue`/`coral`, le prompt devrait mentionner "beige background, flat illustration, blue and coral blocks" plutôt que laisser le modèle choisir librement.
+
+Sans cette étape, l'utilisateur devra itérer 3-4 fois pour matcher le style visuel.
+
 ## Present Results to User
 
 **Images:**
@@ -284,4 +298,22 @@ Request ID: abc123-def456
 ```
 Error: FAL_KEY not set
 ```
-**Solution:** Run `./generate.sh --add-fal-key` or `export FAL_KEY=your_key`.
+**Solution (session courante) :**
+```bash
+export FAL_KEY=your_key_here
+```
+
+**Solution permanente :** ajouter dans `~/.claude/skills/fal-generate/.env` :
+```
+FAL_KEY=your_key_here
+```
+Puis recharger : `source ~/.claude/skills/fal-generate/.env`
+
+> Note : `--add-fal-key` sans argument ne fait rien — utiliser directement `export` ou éditer le `.env`.
+
+### FAL_KEY perdue entre sessions
+
+La clé sauvegardée en `.env` n'est pas rechargée automatiquement. Si la clé est absente :
+1. Vérifier `~/.claude/skills/fal-generate/.env`
+2. Si elle y est : `source ~/.claude/skills/fal-generate/.env`
+3. Sinon : suivre la procédure "API Key Error" ci-dessus

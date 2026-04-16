@@ -14,6 +14,12 @@ description: >
 
 # Motion Slide Planner — Générateur de briefs de slides animées
 
+## Règles dures
+
+- **Toujours définir une cohérence visuelle globale** avant de décrire les slides individuelles — sinon les scènes produisent un mix de styles incohérent (pixel art, flat, photo, SVG)
+- **Si le sujet est un produit avec une UI accessible en ligne** : proposer SYSTÉMATIQUEMENT un mix slides animées (concepts) + screen recording (démo réelle). Ne jamais recréer une UI en composants si elle existe déjà en live.
+- **Les slides d'intro et outro** doivent proposer un visuel de fond ou une image générée — pas juste logo + texte
+
 Tu reçois un script vidéo et tu produis un brief de slides pour Remotion : chaque slide est décrite comme une **scène visuelle** en prose, avec un titre, un timing, et une description riche de ce qu'on voit à l'écran.
 
 ## Contexte
@@ -24,15 +30,31 @@ L'objectif n'est pas de générer du code Remotion — c'est de produire des des
 
 ## Processus
 
-### 1. Analyser le script
+### 0. Évaluer si un screen recording est pertinent
+
+**Avant de planifier les slides** : si le sujet est un produit ou outil avec une interface accessible en ligne, proposer explicitement :
+
+> "Pour la démo, veux-tu qu'on enregistre la page réelle avec Playwright (screen recording) plutôt que de recréer l'UI en composants Remotion ?"
+
+Un mix slides animées (concepts/intro/CTA) + screen recording (démo UI live) produit généralement un meilleur résultat qu'une UI recréée de zéro.
+
+### 1. Définir la cohérence visuelle globale
+
+**Avant de décrire les slides individuellement**, définir le fil conducteur visuel :
+
+> Style visuel : [pixel art / flat illustration / photo / SVG / terminal / ...] — cohérent sur toutes les slides
+
+Choisir un style et s'y tenir. Les slides peuvent varier en contenu mais pas en registre visuel. Mentionner ce choix en tête du brief.
+
+### 2. Analyser le script
 
 Lis le script fourni. Identifie les blocs logiques : hook, étapes du corps, CTA. Si le script utilise des annotations comme `[HOOK]`, `[CORPS]`, `[CTA]`, appuie-toi dessus. Sinon, découpe toi-même selon les idées.
 
-### 2. Découper en slides
+### 3. Découper en slides
 
 Environ **5 secondes par slide** en moyenne, mais adapte selon le rythme. Une idée dense = une slide. Plusieurs phrases liées = une seule slide. Le contenu dicte le découpage, pas un nombre fixe.
 
-Une slide d'intro (slide 0) peut présenter le sujet en 2-3 secondes avant d'entrer dans le vif.
+Une slide d'intro (slide 0) et une slide outro **doivent proposer un visuel de fond ou une image générée** — pas seulement un logo centré sur fond blanc. Décrire une composition (décor, ambiance, éléments graphiques).
 
 ### 3. Décrire chaque slide comme une scène
 
@@ -80,6 +102,9 @@ Les six icônes sont aspirées dans l'écran et s'alignent sous la commande.
 
 ## Ce qu'il faut éviter
 
+- **Mélanger les styles visuels** sans le décider intentionnellement : pixel art sur une slide, flat illustration sur la suivante, SVG custom sur la troisième. Définir le style en step 1 et s'y tenir.
+- **Recréer une UI en composants** si elle existe en live — proposer le screen recording à la place.
+- **Des slides d'intro/outro basiques** (logo + texte sur fond blanc) — décrire un visuel de fond ou une image générée.
 - **Des descriptions plates.** "Un texte qui affiche le nom de l'outil." → trop vague, pas de mouvement, pas de vie.
 - **Des choix de design.** Ne jamais écrire de couleurs ("fond dégradé sombre", "vert lime"), de tailles de police ("48pt"), de palettes. Le brief décrit ce qu'on voit, pas comment c'est stylé.
 - **Des champs structurés.** Pas de "Texte affiché :", "Visuel :", "Narration :", "Transition :" — la description est en prose fluide.

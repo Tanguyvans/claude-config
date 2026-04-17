@@ -124,3 +124,13 @@ ls -lh logos/
 ## Quand utiliser `theme=dark`
 
 Certains logos (Apple, Nike, Uber...) sont noirs ou très sombres. Sur un fond noir, ils deviennent invisibles. Le paramètre `theme=dark` dit à l'API de retourner une version du logo adaptée aux fonds sombres — souvent en blanc ou avec des couleurs claires. Pense à demander à l'utilisateur sur quel fond il va utiliser le logo, ou détecte-le dans le contexte (ex: "slide sur fond noir" → `theme=dark`).
+
+## Checklist pré-livraison
+
+Avant de confirmer à l'utilisateur, vérifier :
+
+- [ ] Téléchargement en parallèle (`&` + `wait`) utilisé quand plusieurs logos
+- [ ] Taille adaptée au contexte : `256` pour slides, `128` pour inline, `512` pour grand format
+- [ ] Vérification avec `file logos/*.png` — chaque fichier est "PNG image data"
+- [ ] Convention de nommage respectée : `{entreprise}_logo.png` (minuscules, underscores)
+- [ ] Confirmation affichée avec `ls -lh logos/`

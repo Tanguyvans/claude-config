@@ -1,0 +1,78 @@
+{
+  "period_days": 7,
+  "max_ideas": 15,
+  "engagement_threshold": {
+    "twitter": { "likes_min": 500, "retweets_min": 50 },
+    "tiktok": { "diggs_min": 5000, "views_min": 100000 },
+    "instagram": { "likes_min": 1000 }
+  },
+  "twitter": {
+    "accounts": [
+      "sama",
+      "karpathy",
+      "swyx",
+      "levelsio",
+      "AnthropicAI",
+      "OpenAI",
+      "simonw",
+      "alexalbert__",
+      "mckaywrigley",
+      "shko_ai",
+      "rauchg",
+      "ycombinator",
+      "danielgross",
+      "bentossell",
+      "ylecun",
+      "bcherny",
+      "trq212",
+      "Zai_org",
+      "MiniMax__AI",
+      "deepseek_ai",
+      "Alibaba_Qwen",
+      "Kimi_Moonshot",
+      "MistralAI",
+      "GoogleDeepMind",
+      "runwayml"
+    ],
+    "search_queries": [
+      "just shipped AI",
+      "built with Claude",
+      "cursor tips"
+    ]
+  },
+  "tiktok": {
+    "accounts": [
+      "jimmy_builds_ai",
+      "ai_explained",
+      "codewithbeto"
+    ],
+    "hashtags": [
+      "aitools",
+      "buildinpublic",
+      "vibecoding"
+    ]
+  },
+  "instagram": {
+    "accounts": [
+      "ai.entrepreneur",
+      "indiehackers"
+    ]
+  },
+  "github": {
+    "days": 30,
+    "min_stars": 1000,
+    "mode": "new",
+    "topics": [
+      "llm",
+      "ai-agents",
+      "llm-agent",
+      "rag",
+      "agents",
+      "ai",
+      "claude",
+      "mcp",
+      "generative-ai",
+      "llmops"
+    ]
+  }
+}

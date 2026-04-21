@@ -37,7 +37,15 @@ Tu valides ? Tu veux modifier ou ajouter quelque chose ?
    - Ajouter des points
    - Supprimer un feedback non pertinent
 
-5. **Sauvegarder** les feedbacks valides dans `.claude/skills/{skill-name}/FEEDBACK.md`
+5. **Choisir ou sauvegarder** les feedbacks valides :
+
+   Demander a l'utilisateur :
+   > "Sauvegarder dans le repo global (`~/Desktop/my_project/claude-config/skills/`) ou localement dans ce projet (`.claude/skills/`) ? [global par defaut]"
+
+   - **Global (defaut)** → `~/Desktop/my_project/claude-config/skills/{skill-name}/FEEDBACK.md`
+   - **Local** → `.claude/skills/{skill-name}/FEEDBACK.md`
+
+   Dans les deux cas :
    - Ajouter a la suite du fichier existant (ne pas ecraser)
    - Format :
 

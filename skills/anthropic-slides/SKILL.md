@@ -13,6 +13,10 @@ description: Generate Remotion video slides with Anthropic's visual design langu
 - **TOUJOURS demander ou suggérer un thème au démarrage** — ne jamais defaulter silencieusement sur Anthropic
 - **Si le sujet jure visuellement avec le style Anthropic** (ex: caveman, terminal, dark hacker) → proposer un thème adapté
 - **Un thème = un seul fichier `theme.ts` à swapper** — les slides importent toutes depuis `theme.ts`
+- **Toutes les slides utilisent `COLORS.background` comme fond** — sauf si le script mentionne explicitement un fond différent. Ne jamais interpréter un "terminal sombre" comme un changement de fond global (styler le contenu en carte, pas le fond de slide)
+- **Après tout changement de thème ou de typographie** : re-render toutes les slides et vérifier qu'aucun conteneur fixe ne déborde (`overflow: hidden` ou vérification visuelle)
+- **Pour un sujet de type repo GitHub** : proposer systématiquement une slide finale avec l'URL en grand par défaut
+- **Labels flottants** : positionner absolument par rapport au conteneur de slide (coordonnées explicites), pas relativement au parent — le parent peut changer de taille et casser le layout
 
 ## Choisir un thème
 

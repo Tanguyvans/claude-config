@@ -141,9 +141,11 @@ Avant de livrer le script, vérifier chaque point :
 - [ ] Indications visuelles *(screen : ...)* présentes dans le corps
 - [ ] Nombre de mots entre 80 et 130
 - [ ] Pas d'énumérations type catalogue
+- [ ] Conclusion/CTA = takeaway actionnable, pas une formule "mind-blown" générique
 
 ## Ce qu'il faut éviter
 
+- Les conclusions génériques "mind-blown" ("la prochaine fois que ton IA répond bizarre..."). Finir sur un takeaway actionnable — un conseil de prompting concret, une astuce directement utilisable
 - Utiliser des titres `##` pour les sections du script au lieu du format `**[SECTION - indication]**`
 - Dépasser 130 mots de script
 - Les intros qui contextualisent trop ("Aujourd'hui on va parler de...")

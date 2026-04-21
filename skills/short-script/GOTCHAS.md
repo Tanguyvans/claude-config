@@ -16,6 +16,7 @@ Erreurs recurrentes a verifier AVANT de livrer. Lire cette liste a chaque execut
 ## CTA
 - [ ] CTA par defaut : "Voila l'URL et a demain." (PAS "Lien en commentaire. Abonne-toi.")
 - [ ] Le CTA du createur est "Voila l'URL et a demain." Signale 3 fois dans le feedback
+- [ ] Pas de conclusion "mind-blown" generique ("la prochaine fois que ton IA repond bizarre..."). Finir sur un conseil actionnable.
 
 ## Contenu et fact-checking
 - [ ] Fact-checker les claims techniques contre la source reelle (README, repo, article). Ne pas reprendre un resume sans verifier

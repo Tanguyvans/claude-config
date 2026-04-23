@@ -15,6 +15,8 @@ Generate images and videos using state-of-the-art AI models on fal.ai.
 - **Si un fichier `theme.ts` existe dans le projet**, lire sa palette (couleurs, style) avant de rédiger le prompt — ne jamais ignorer le design system existant
 - **FAL_KEY doit être rechargée explicitement** si elle n'est pas dans l'environnement courant : vérifier `.env` du projet ou `~/.claude/skills/fal-generate/.env`
 - **`--add-fal-key` sans argument** ne fait rien d'utile — toujours guider l'utilisateur vers la syntaxe complète : `export FAL_KEY=your_key` ou éditer le `.env`
+- **Labels textuels dans l'image** (ex: "robot labeled 'GPT 5.5'") → rendu non fiable (mots tronqués, caractères inventés). Prévenir l'utilisateur. Alternatives : (a) image sans texte + overlay CSS côté consommateur, (b) `<SketchImage>` placeholder dans le carrousel, (c) flux-kontext (meilleur pour le texte)
+- **Fond transparent** : même avec "transparent background" dans le prompt, la plupart des modèles renvoient un fond blanc solide. Pour intégration sur fond coloré : utiliser `mixBlendMode: multiply` en CSS/Remotion, ou basculer sur flux-kontext + rembg pour vraie transparence
 
 ## Scripts
 

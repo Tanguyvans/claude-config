@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Carrousels IA — code_simple / iamtguy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #f0eee9; }
+    * { box-sizing: border-box; }
+  </style>
+  <script>
+    window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+      "format": "instagram",
+      "showAllFormats": false,
+      "handleFR": "@code_simple",
+      "handleEN": "@iamtguy"
+    }/*EDITMODE-END*/;
+  </script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="carousels/sketchy-shared.jsx"></script>
+  <script type="text/babel" src="carousels/sketchy-slide-base.jsx"></script>
+  <script type="text/babel" src="carousels/carousel-1-graphify.jsx"></script>
+  <script type="text/babel" src="carousels/carousel-2-opus47.jsx"></script>
+  <script type="text/babel" src="carousels/carousel-3-hermes-vs-openclaw.jsx"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const FORMAT_ORDER = ['instagram', 'tiktok', 'linkedin'];
+
+    function CoverNote({ format, showAll, handleFR, handleEN }) {
+      const label = FORMATS[format]?.label || 'multi';
+      return (
+        <div style={{ padding: '50px 60px 30px', maxWidth: 1100 }}>
+          <div style={{
+            fontFamily: 'Caveat, cursive', fontSize: 64, fontWeight: 700,
+            color: INK, lineHeight: 1, marginBottom: 8,
+          }}>
+            Carrousels IA
+          </div>
+          <div style={{
+            fontFamily: 'Caveat, cursive', fontSize: 30, fontWeight: 600,
+            color: INK_SOFT, lineHeight: 1, marginBottom: 16,
+          }}>
+            pour <Highlight color="#ffd27a">{handleFR}</Highlight> <span style={{ color: INK_FAINT }}>/</span> <Highlight>{handleEN}</Highlight>
+          </div>
+          <div style={{
+            fontFamily: 'Kalam, cursive', fontSize: 19, color: INK_SOFT,
+            lineHeight: 1.55, maxWidth: 780,
+          }}>
+            Trois actus IA · 7 slides chacune · style sketchy / lo-fi (Caveat + Kalam + JetBrains Mono).
+            Mêmes compositions recalculées pour chaque format — <b>IG 1080×1350</b>, <b>TikTok 1080×1920</b>, <b>LinkedIn 1200×1500</b>.
+            Active les Tweaks en haut pour basculer entre formats, ou tout empiler pour comparer.
+          </div>
+          <div style={{
+            display: 'flex', gap: 20, marginTop: 18,
+            fontFamily: 'Kalam, cursive', fontSize: 15, color: INK_SOFT,
+            flexWrap: 'wrap',
+          }}>
+            <span>◆ orange = accent, à doser</span>
+            <span>◆ caveat = titres / annotations</span>
+            <span>◆ kalam = corps de texte</span>
+            <span>◆ mono = code & handles</span>
+          </div>
+          <div style={{
+            display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap',
+          }}>
+            <span style={{
+              fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+              textTransform: 'uppercase', letterSpacing: '0.08em',
+              background: INK, color: PAPER, padding: '6px 12px',
+              whiteSpace: 'nowrap',
+            }}>
+              actif · {label}
+            </span>
+            {showAll && (
+              <span style={{
+                fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+                textTransform: 'uppercase', letterSpacing: '0.08em',
+                background: ORANGE, color: PAPER, padding: '6px 12px',
+                whiteSpace: 'nowrap',
+              }}>3 formats empilés</span>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function CarouselBlock({ format, handleFR, handleEN }) {
+      return (
+        <>
+          <Carousel1 format={format} handle={handleFR} />
+          <Carousel2 format={format} handle={handleFR} />
+          <Carousel3 format={format} handle={format === 'linkedin' ? handleEN : handleFR} lang={format === 'linkedin' ? 'en' : 'fr'} />
+        </>
+      );
+    }
+
+    function FormatDivider({ format }) {
+      return (
+        <div style={{
+          padding: '28px 60px 16px', marginTop: 30,
+          borderTop: '2px dashed rgba(42,37,32,0.25)',
+        }}>
+          <div style={{
+            fontFamily: 'Caveat, cursive', fontSize: 46, fontWeight: 700,
+            color: INK, lineHeight: 1,
+          }}>
+            {FORMATS[format].label}
+            <span style={{
+              fontFamily: 'JetBrains Mono, monospace', fontSize: 14,
+              fontWeight: 500, marginLeft: 16, color: INK_SOFT,
+              letterSpacing: '0.05em',
+            }}>
+              {FORMATS[format].w} × {FORMATS[format].h}
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [tweaks, setTweaks] = useState(window.__TWEAKS__);
+      const [tweakMode, setTweakMode] = useState(false);
+
+      useEffect(() => {
+        const handler = (e) => {
+          if (e.data?.type === '__activate_edit_mode') setTweakMode(true);
+          if (e.data?.type === '__deactivate_edit_mode') setTweakMode(false);
+        };
+        window.addEventListener('message', handler);
+        window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+        return () => window.removeEventListener('message', handler);
+      }, []);
+
+      const setKey = (k, v) => {
+        const next = { ...tweaks, [k]: v };
+        setTweaks(next);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+      };
+
+      const { format, showAllFormats, handleFR, handleEN } = tweaks;
+
+      return (
+        <>
+          <DesignCanvas>
+            <CoverNote format={format} showAll={showAllFormats} handleFR={handleFR} handleEN={handleEN} />
+            {showAllFormats ? (
+              FORMAT_ORDER.map(fmt => (
+                <React.Fragment key={fmt}>
+                  <FormatDivider format={fmt} />
+                  <CarouselBlock format={fmt} handleFR={handleFR} handleEN={handleEN} />
+                </React.Fragment>
+              ))
+            ) : (
+              <CarouselBlock format={format} handleFR={handleFR} handleEN={handleEN} />
+            )}
+          </DesignCanvas>
+
+          {tweakMode && (
+            <div style={{
+              position: 'fixed', bottom: 20, right: 20,
+              background: '#fef4a8', color: INK,
+              padding: '18px 22px',
+              border: `2.5px solid ${INK}`,
+              borderRadius: '7px 4px 8px 3px / 5px 7px 4px 6px',
+              fontFamily: 'Kalam, cursive', fontSize: 14,
+              boxShadow: '0 6px 16px rgba(0,0,0,0.15)',
+              transform: 'rotate(-1deg)',
+              zIndex: 100, minWidth: 270,
+            }}>
+              <div style={{
+                fontFamily: 'Caveat, cursive', fontSize: 28, fontWeight: 700,
+                marginBottom: 12, lineHeight: 1,
+              }}>
+                Tweaks
+              </div>
+
+              <div style={{
+                fontFamily: 'JetBrains Mono, monospace', fontSize: 10,
+                textTransform: 'uppercase', letterSpacing: '0.1em',
+                color: INK_SOFT, marginBottom: 6,
+              }}>
+                format
+              </div>
+              <div style={{ display: 'flex', gap: 4, marginBottom: 14 }}>
+                {FORMAT_ORDER.map(fmt => (
+                  <button
+                    key={fmt}
+                    onClick={() => setKey('format', fmt)}
+                    disabled={showAllFormats}
+                    style={{
+                      flex: 1, padding: '8px 6px',
+                      fontFamily: 'Caveat, cursive', fontSize: 18, fontWeight: 700,
+                      border: `1.5px solid ${INK}`,
+                      borderRadius: '4px 6px 3px 5px',
+                      background: format === fmt && !showAllFormats ? ORANGE : 'transparent',
+                      color: format === fmt && !showAllFormats ? PAPER : INK,
+                      cursor: showAllFormats ? 'not-allowed' : 'pointer',
+                      opacity: showAllFormats ? 0.4 : 1,
+                    }}
+                  >
+                    {fmt === 'instagram' ? 'IG' : fmt === 'tiktok' ? 'TikTok' : 'LinkedIn'}
+                  </button>
+                ))}
+              </div>
+
+              <label style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                marginBottom: 14, cursor: 'pointer',
+                fontSize: 15,
+              }}>
+                <input
+                  type="checkbox"
+                  checked={showAllFormats}
+                  onChange={e => setKey('showAllFormats', e.target.checked)}
+                />
+                Empiler les 3 formats
+              </label>
+
+              <div style={{
+                fontFamily: 'JetBrains Mono, monospace', fontSize: 10,
+                textTransform: 'uppercase', letterSpacing: '0.1em',
+                color: INK_SOFT, marginBottom: 6,
+              }}>
+                handles
+              </div>
+              <input
+                type="text"
+                value={handleFR}
+                onChange={e => setKey('handleFR', e.target.value)}
+                style={{
+                  width: '100%', padding: '7px 10px', marginBottom: 6,
+                  background: PAPER, color: INK,
+                  border: `1.5px solid ${INK}`,
+                  borderRadius: '3px 5px 3px 5px',
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: 13,
+                }}
+              />
+              <input
+                type="text"
+                value={handleEN}
+                onChange={e => setKey('handleEN', e.target.value)}
+                style={{
+                  width: '100%', padding: '7px 10px',
+                  background: PAPER, color: INK,
+                  border: `1.5px solid ${INK}`,
+                  borderRadius: '3px 5px 3px 5px',
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: 13,
+                }}
+              />
+
+              <div style={{
+                fontSize: 12, color: INK_SOFT, marginTop: 12,
+                lineHeight: 1.4, fontFamily: 'Kalam, cursive',
+              }}>
+                LinkedIn passe automatiquement en EN avec @iamtguy.
+              </div>
+            </div>
+          )}
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

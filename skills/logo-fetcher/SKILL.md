@@ -53,6 +53,8 @@ La plupart des entreprises connues ont un domaine évident :
 | Stripe | stripe.com |
 | Netflix | netflix.com |
 
+Si le logo récupéré via le domaine semble générique ou peu représentatif (icône simpliste, sans branding reconnaissable), essayer les variantes de domaine via l'endpoint `/search` (ex: `brand.ai`, `brand.com`, `brandname.com`). Le logo peut être bien meilleur sur une TLD différente.
+
 Pour les entreprises moins connues ou quand tu n'es pas sûr du domaine, utilise l'endpoint de recherche :
 
 ```bash
@@ -107,6 +109,10 @@ file logos/*.png
 
 Chaque ligne doit contenir "PNG image data". Si un fichier contient du JSON ou du texte, c'est une erreur API (domaine introuvable, clé invalide...). Dans ce cas, essaie l'endpoint de recherche (étape 2) pour trouver le bon domaine.
 
+**Logo avec `theme=dark`** : le logo est blanc sur fond transparent — invisible dans un viewer PNG classique (blanc sur blanc). L'utilisateur peut croire que le téléchargement a échoué. Vérifier `file_size > 1KB` via `ls -lh logos/` plutôt que la preview visuelle.
+
+**Logo avec fond opaque non-transparent** : si le contexte d'intégration est un thème clair et que le logo a un fond coloré (ou inversement), prévenir l'utilisateur avant intégration. Proposer : (1) encadrer dans une carte de la couleur du thème, (2) refetch avec `theme=dark` ou `theme=light`, (3) chercher une version alternative via `/search`.
+
 ### Étape 5 — Confirmer à l'utilisateur
 
 Liste les logos téléchargés avec leur taille pour que l'utilisateur sache ce qu'il a :
@@ -132,5 +138,8 @@ Avant de confirmer à l'utilisateur, vérifier :
 - [ ] Téléchargement en parallèle (`&` + `wait`) utilisé quand plusieurs logos
 - [ ] Taille adaptée au contexte : `256` pour slides, `128` pour inline, `512` pour grand format
 - [ ] Vérification avec `file logos/*.png` — chaque fichier est "PNG image data"
+- [ ] Si `theme=dark` : vérifier `file_size > 1KB` plutôt que la preview (logo blanc invisible sur fond blanc)
+- [ ] Si logo générique ou peu représentatif : essayer variantes de domaine via `/search`
+- [ ] Si fond opaque incompatible avec le thème : prévenir l'utilisateur et proposer 3 options
 - [ ] Convention de nommage respectée : `{entreprise}_logo.png` (minuscules, underscores)
 - [ ] Confirmation affichée avec `ls -lh logos/`

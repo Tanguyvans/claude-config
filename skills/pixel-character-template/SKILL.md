@@ -61,6 +61,38 @@ Si l'utilisateur demande un personnage qui n'existe pas dans la galerie :
 4. Crée un nouveau `character.md` dans `references/{nom}/`
 5. La tête/visage des humains est toujours identique entre poses — seuls le corps et les bras changent
 
+## Quand NE PAS utiliser ce skill
+
+- **Slides déjà denses en UI mockups** ou sujets non-narratifs : le pixel art n'ajoute pas de valeur
+- **Sujets tutoriel pur** sans personnage narrateur : préférer une illustration flat ou un screen recording
+- **Personnages expressifs avec posture ou émotion** (KO allongé, boxeur victorieux, mascotte qui pleure) : les grilles PixelChar faites main sont illisibles pour ces poses complexes. Utiliser `fal-generate` avec prompt "pixel art sprite, 16-bit retro game style, chunky square pixels, white background, centered character" + `mixBlendMode: multiply` côté Remotion
+- **Règle** : PixelChar marche pour icônes simples (★, ❤, cube, smiley). Pour personnages expressifs → `fal-generate`
+
+## pixelSize recommandé par format
+
+| Format | Dimensions | pixelSize recommandé |
+|--------|-----------|---------------------|
+| 4:3 standard | 1920×1080 | 6 |
+| 1:1 short (slide) | 1080×1080 | 10-12 |
+| Gros plan / hero | toute taille | 14-16 |
+
+Avec `pixelSize: 8` sur une slide 1080×1080, le personnage finit à ~130px de haut — trop petit. Utiliser 10-12 pour un format carré.
+
+## Variantes d'une pose
+
+Pour créer une micro-variation d'une pose existante (ex: bouche triste au lieu de sourire) sans recréer le personnage complet :
+
+1. Copier la grille de base de la pose source
+2. Identifier les pixels à modifier : la bouche occupe généralement les lignes 5-6 du visage (lignes ~7-8 de la grille totale)
+3. Changer uniquement les pixels de l'expression cible
+4. Documenter les pixels modifiés dans un commentaire à côté de la grille
+
+Exemple modification bouche :
+```
+// Sourire → Neutre : remplacer [7][6]='S', [7][7]='S' par [7][6]='C', [7][7]='C'
+// Sourire → Triste : inverser la courbe, ex [8][5]='S' au lieu de [6][5]='S'
+```
+
 ## Créer un accessoire
 
 Pour les petits objets (laptop, café, téléphone...) :

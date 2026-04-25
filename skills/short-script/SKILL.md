@@ -92,7 +92,13 @@ Quand on mentionne une commande, un chiffre, ou un résultat visuel, on ajoute l
 
 ## Le CTA — court et direct
 
-Le CTA fait 1-2 phrases max. Le CTA par défaut est : **"Voilà l'URL et à demain."** C'est le format habituel du créateur, utilise-le sauf demande contraire.
+Le CTA fait 1-2 phrases max. Le CTA est **adapté au type de sujet** :
+
+- **Repo / outil avec URL** : "Voilà l'URL et à demain." ← format par défaut du créateur
+- **News / tuto / opinion sans URL externe** : CTA d'engagement (like/abonne) ou pas de CTA — ne pas forcer "l'URL" quand il n'y a rien à partager
+- **Si ambigu** : demander à l'utilisateur
+
+Quand l'utilisateur dicte son CTA verbatim (texte brut, même avec fautes), l'intégrer tel quel en corrigeant seulement l'orthographe — ne pas paraphraser.
 
 Autres patterns possibles (seulement si l'utilisateur le demande) :
 - "Lien en commentaire. Abonne-toi."
@@ -120,10 +126,11 @@ Quand on te donne un sujet :
 4. **Proposer 3+ options de hook** avec des angles variés (curiosité, frustration, nouveauté...). Attendre la validation de l'utilisateur avant d'écrire le script complet
 5. Si plusieurs angles sont possibles pour le corps, **demander l'angle principal** avant d'écrire
 6. Écris le script complet en respectant le format exact
-7. **Fact-check** : vérifier chaque affirmation technique contre la source réelle. Ne pas reprendre les claims d'un résumé sans vérifier. Nommer les benchmarks quand on cite un score
-8. **Passe anti-répétition** : relire le script pour éliminer les mots/structures répétés ("Le repo", "Il", "aussi")
+7. **Fact-check** : vérifier chaque affirmation technique contre la source réelle. Ne pas reprendre les claims d'un résumé sans vérifier. Nommer les benchmarks quand on cite un score. Pour tout chiffre comparatif (ratio "Nx moins cher", "X fois plus rapide"), citer la source primaire (doc officielle, page pricing) — les sources secondaires (Medium, blog, résumés LLM) peuvent refléter une ancienne version et fausser le chiffre.
+8. **Passe anti-répétition** : relire le script pour éliminer les mots/structures répétés ("Le repo", "Il", "aussi"). Vérifier aussi que les 10 derniers mots du hook et les 10 premiers mots du corps ne partagent pas de mot-clé saillant — si oui, reformuler.
 9. Vérifie le nombre de mots du script, doit être entre 80 et 130
-10. **Checklist pré-livraison** (voir ci-dessous)
+10. **Auto-critique honnête** : avant de livrer, passer une relecture critique (flow logique, phrases bancales, anglicismes inutiles, claims forts non vérifiés). Formuler les faiblesses explicitement, pas seulement sur demande de l'utilisateur.
+11. **Checklist pré-livraison** (voir ci-dessous)
 11. Si c'est trop long, coupe. Chaque phrase doit mériter sa place
 
 ## Checklist pré-livraison

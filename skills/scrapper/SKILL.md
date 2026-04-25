@@ -82,6 +82,21 @@ Pour économiser : lance `--only=twitter` ou `--only=github` si l'utilisateur ve
 { "generated_at": "...", "platforms": { "twitter": {...}, "tiktok": {...}, "instagram": {...}, "github": {...} } }
 ```
 
+## Vérifier les crédits avant de lancer
+
+Avant de lancer `x.js`, `tiktok.js`, `instagram.js` ou `all.js`, vérifier que le solde ScrapeCreators n'est pas épuisé. Si le solde est nul, le script va émettre 402 à chaque requête sans s'arrêter.
+
+```bash
+# Vérifier le solde (endpoint balance si disponible) ou regarder config.json
+# En cas de 402 répété dans stderr → crédits épuisés, basculer sur --only=github
+```
+
+Si le scraper retourne `402` : afficher `[warn] crédits ScrapeCreators épuisés, skip {plateforme}` et continuer avec les sources gratuites (GitHub).
+
+## Format de sortie — github.js
+
+**Attention** : `github.js` renvoie `{ count, repos, tiers }` mais ne garantit pas un champ `count` au niveau racine identique aux autres scripts. Lors du parsing côté consommateur, utiliser `d.platforms.github.repos?.length` plutôt que `d.platforms.github.count` pour éviter un zéro inattendu.
+
 ## Limites connues
 
 ### Twitter via ScrapeCreators

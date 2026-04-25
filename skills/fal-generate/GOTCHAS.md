@@ -14,6 +14,11 @@ Erreurs récurrentes à vérifier AVANT de générer.
 - [ ] Le prompt reflète le style visuel du projet (fond, couleurs dominantes, style illustration)
 - [ ] Ne pas laisser le modèle choisir librement le style si un design system existe
 
+## Texte et transparence
+
+- [ ] **Labels textuels dans l'image** → rendu non fiable (mots tronqués, caractères inventés). Prévenir l'utilisateur. Alternatives : (a) image sans texte + overlay CSS côté consommateur, (b) `<SketchImage>` placeholder, (c) flux-kontext (meilleur pour le texte)
+- [ ] **Fond blanc par défaut** : même avec "transparent background" dans le prompt, la plupart des modèles renvoient un fond blanc solide. Pour intégration sur fond coloré : `mixBlendMode: multiply` en CSS/Remotion, ou flux-kontext + rembg pour vraie transparence
+
 ## Process
 
 - [ ] Utiliser le mode queue par défaut (pas --sync pour les vidéos)

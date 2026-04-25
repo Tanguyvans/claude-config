@@ -15,6 +15,12 @@ Ce skill **utilise le skill `scrapper`** pour récupérer les données, puis syn
 
 ## Workflow
 
+### Étape 0 — Vérifier les sujets déjà couverts
+
+**Avant de scraper**, lire `~/Desktop/ai-claude/video-courte/index-videos.md` et les scripts dans `~/Desktop/ai-claude/video-courte/scripts/*.md` pour identifier les sujets déjà traités. Auto-filtrer et flagger les overlaps dans la liste finale ("déjà couvert : caveman, mémpalace, etc.").
+
+Si la demande mentionne un **produit ou feature précis** (ex: "Claude Code Routines"), préférer une recherche ciblée (WebSearch/WebFetch sur la doc officielle ou le repo) plutôt qu'un scrape tous azimuts — le scrape retourne 15 angles génériques, la recherche ciblée donne des angles pertinents directement.
+
 ### Étape 1 — Choisir les sources à scraper
 
 Par défaut : **X + GitHub**. C'est le meilleur ratio signal/crédits (X = les takes chauds, GitHub = les nouveaux outils qui buzzent, et GitHub est gratuit).
@@ -62,6 +68,8 @@ N. **"[repo] a explosé cette semaine — [angle : démo / comparatif / tuto]"**
 - **Groupe par thème** si plusieurs posts parlent du même sujet (même modèle IA sorti, même tool). Un seul angle, plusieurs sources.
 - **Priorise les angles actionnables** : démos, tutos, comparatifs, hot takes. Évite les annonces type "on recrute".
 - **Priorise les posts récents** (< 30 jours) en haut, même si d'autres ont plus d'engagement — Twitter ScrapeCreators renvoie des tweets de plusieurs années mélangés.
+- **Demoter fortement les posts > 90 jours** : même avec gros engagement, ne pas les remonter en top si la date est ancienne. Risque de présenter du vieux contenu comme "frais".
+- **Afficher l'âge des repos GitHub** : si `created_at` est disponible, afficher "créé il y a N semaines" en plus des stars — utile pour les claims "ça explose cette semaine".
 - **Max 15 angles** (ou `max_ideas` dans `scrapper/config.json`).
 - **Langue** : angles en français même si les posts sont en anglais.
 - **Tags GitHub** : inclure les `topics` pour que l'utilisateur voie rapidement le sujet (ex: `[llm, rag, python]`).
@@ -71,6 +79,9 @@ N. **"[repo] a explosé cette semaine — [angle : démo / comparatif / tuto]"**
 Après la liste, propose :
 - "Tu veux que je transforme l'idée N°X en script via `/short-script` ?"
 - "Tu veux élargir la liste de comptes dans `scrapper/config.json` ?"
+- "Tu veux que j'ajoute le sujet choisi dans `index-videos.md` pour éviter le doublon la prochaine fois ?"
+
+Si l'utilisateur valide un angle, proposer d'ajouter une entrée dans `~/Desktop/ai-claude/video-courte/index-videos.md` avant de continuer.
 
 ## Config
 

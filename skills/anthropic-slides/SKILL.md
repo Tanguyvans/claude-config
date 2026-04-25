@@ -135,7 +135,7 @@ export const SPACING = {
 };
 
 export const LAYOUT = {
-  // Video dimensions (1080p standard)
+  // Video dimensions — standard 16:9
   width: 1920,
   height: 1080,
 
@@ -151,6 +151,25 @@ export const LAYOUT = {
   // Icon size in cards
   iconSize: 48,
 };
+
+// Square format preset (1:1) — utilisé par le workflow /video (TikTok / Reels / Shorts)
+export const LAYOUT_SQUARE = {
+  width: 1080,
+  height: 1080,
+  padding: 60,
+  contentMaxWidth: 960,
+  cardRadius: 16,
+  cardPadding: 24,
+  cardShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
+  iconSize: 48,
+  // Marge haute réservée à la zone UI plateforme (TikTok, Reels)
+  topSafeArea: 120,   // zone UI de la plateforme — laisser vide
+  titleMarginTop: 80, // margin-top par défaut sur les titres après le safe area
+};
+
+// Adapter le layout selon le format cible : 16:9 → LAYOUT, 1:1 → LAYOUT_SQUARE
+// Pour les cards empilées verticalement en 1:1 : préférer flex-column + gap plutôt
+// que top: absolute calculé à la main (évite les chevauchements si le contenu gonfle).
 ```
 
 ### Animation Principles
@@ -208,6 +227,12 @@ export const ANIMATION = {
 - Each with heading + content
 - Divider line between
 - Good for before/after, old/new
+
+### 5b. Split Card Slide (SplitCardSlide)
+- Une seule carte blanche unifiée avec divider central
+- Deux zones symétriques (gauche / droite) dans la même carte
+- Plus solide visuellement que deux cards séparées flottantes
+- Idéal pour les comparatifs versus, avant/après, pro/con côte-à-côte
 
 ### 6. Quote / Callout Slide
 - Large quote text centered
@@ -380,6 +405,38 @@ export const MyVideo: React.FC = () => {
     </Series>
   );
 };
+```
+
+## Pièges d'animation et de layout
+
+### Vérification des rendus (stills)
+
+Pour tester une slide avec des animations retardées (delay > 50 frames), rendre le still à **frame milieu+** (ex: frame 90 sur une slide de 150 frames), pas au frame exact du milieu. Les animations avec `delay: 100+` ne sont pas encore apparues au frame 75 et donnent l'impression d'être manquantes.
+
+### Cards empilées en format 1:1
+
+Pour les slides 1080×1080 avec plusieurs cards verticales : utiliser `flex-column` + `gap` plutôt que `top: absolute` calculé à la main. Le stack s'adapte automatiquement si le padding d'une carte change — l'absolu cause des chevauchements.
+
+```tsx
+// ✅ Bon
+<div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+  {cards.map(card => <Card key={card.id} {...card} />)}
+</div>
+
+// ❌ Mauvais (chevauchements si le contenu gonfle)
+{cards.map((card, i) => <Card key={i} style={{ position: 'absolute', top: 120 + i * 200 }} {...card} />)}
+```
+
+### Animation de chute en cascade
+
+Les animations "chute d'items" doivent varier la `targetY` par item, pas seulement le `delay` :
+
+```tsx
+// ✅ Cascade lisible
+const targetY = baseY + i * gap; // chaque item atterrit à un niveau différent
+
+// ❌ Pile visuelle
+const targetY = progress * H; // tous atterrissent au même endroit quand progress=1
 ```
 
 ## Key Design Principles

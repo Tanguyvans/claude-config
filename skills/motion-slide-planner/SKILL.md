@@ -19,6 +19,9 @@ description: >
 - **Toujours définir une cohérence visuelle globale** avant de décrire les slides individuelles — sinon les scènes produisent un mix de styles incohérent (pixel art, flat, photo, SVG)
 - **Si le sujet est un produit avec une UI accessible en ligne** : proposer SYSTÉMATIQUEMENT un mix slides animées (concepts) + screen recording (démo réelle). Ne jamais recréer une UI en composants si elle existe déjà en live.
 - **Les slides d'intro et outro** doivent proposer un visuel de fond ou une image générée — pas juste logo + texte
+- **Maximum 2 éléments principaux par slide** (un hero + un support). Si la description implique plus : splitter en 2 slides. Les slides surchargées (radar + score + 4 offres + animations) sont rejetées au rendu.
+- **Pour les personnages avec posture ou émotion** (KO, victoire, pleurs) : annoter "→ `fal-generate` sprite" dans la prose. `pixel-character-template` (PixelChar) est pour les icônes simples (★, ❤, cube) — illisible pour les personnages expressifs.
+- **Pour les logos de marques connues** : annoter dans la prose "logo réel via `logo-fetcher` → `public/logos/{brand}_logo.png`". Ne pas laisser le développeur coder un SVG custom quand un logo haute qualité est récupérable.
 
 Tu reçois un script vidéo et tu produis un brief de slides pour Remotion : chaque slide est décrite comme une **scène visuelle** en prose, avec un titre, un timing, et une description riche de ce qu'on voit à l'écran.
 

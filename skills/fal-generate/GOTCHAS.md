@@ -18,3 +18,7 @@ Erreurs récurrentes à vérifier AVANT de générer.
 
 - [ ] Utiliser le mode queue par défaut (pas --sync pour les vidéos)
 - [ ] Pour les vidéos longues, proposer `--async` + instructions de suivi
+- [ ] Pour un AR spécifique (16:9, 9:16, 21:9...), utiliser `--aspect-ratio` ou curl direct (pas `--size`)
+- [ ] Avec gpt-image-2 : éviter les noms d'IP/franchises/cartoons connus (filtrage agressif → `downstream_service_error`)
+- [ ] Pour des sprites en série : copier le même préfixe de style mot pour mot dans chaque prompt
+- [ ] Si script piping `search-models.sh | jq ...` → rediriger info messages : `search-models.sh 2>/dev/null | jq ...`

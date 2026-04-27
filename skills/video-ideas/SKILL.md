@@ -15,6 +15,22 @@ Ce skill **utilise le skill `scrapper`** pour récupérer les données, puis syn
 
 ## Workflow
 
+### Étape 0 — Cadrage et auto-filter
+
+**Avant de scraper**, faire deux choses :
+
+1. **Lire le vault Obsidian pour exclure les sujets déjà couverts** :
+   ```bash
+   cat ~/Desktop/ai-claude/video-courte/index-videos.md 2>/dev/null
+   ls ~/Desktop/ai-claude/video-courte/scripts/*.md 2>/dev/null
+   ```
+   Identifier les slugs / sujets déjà traités. Plus tard à l'étape 3, **filtrer** les angles qui matchent ces sujets et flagger en tête de la liste : `Déjà couverts : caveman, mempalace, career-ops, opus-4-7`. Ne pas attendre que l'utilisateur dise "on a déjà couvert".
+
+2. **Si la demande mentionne un produit/feature précis** (ex: "Claude Code Routines", "Opus 4.7 memory tool") :
+   - **Ne PAS scraper tout azimut** — tu vas produire 15 angles génériques inutiles
+   - Demander confirmation et **pivoter vers une recherche ciblée** : WebSearch sur la doc officielle, lecture du README/changelog, recherche Twitter ciblée par mot-clé
+   - Le scrapper sert quand la demande est large ("inspire-moi sur l'IA cette semaine"), pas quand elle est narrow
+
 ### Étape 1 — Choisir les sources à scraper
 
 Par défaut : **X + GitHub**. C'est le meilleur ratio signal/crédits (X = les takes chauds, GitHub = les nouveaux outils qui buzzent, et GitHub est gratuit).
@@ -62,6 +78,9 @@ N. **"[repo] a explosé cette semaine — [angle : démo / comparatif / tuto]"**
 - **Groupe par thème** si plusieurs posts parlent du même sujet (même modèle IA sorti, même tool). Un seul angle, plusieurs sources.
 - **Priorise les angles actionnables** : démos, tutos, comparatifs, hot takes. Évite les annonces type "on recrute".
 - **Priorise les posts récents** (< 30 jours) en haut, même si d'autres ont plus d'engagement — Twitter ScrapeCreators renvoie des tweets de plusieurs années mélangés.
+- **Tweets > 90 jours** : demoter fortement (ne pas remonter en top même avec gros likes). Si pas de `created_at` exploitable, demoter aussi par défaut. Évite de présenter du vieux contenu comme "frais" en cas de fallback GitHub-only.
+- **Affichage de l'âge** : pour chaque post / repo, afficher l'âge ("créé il y a 2 semaines") en plus des metrics — utile pour les claims "explose cette semaine" que l'utilisateur fera ensuite dans le script. Calculer depuis `created_at`.
+- **Auto-filter sujets déjà couverts** (étape 0) : exclure les angles qui matchent les sujets déjà traités dans `~/Desktop/ai-claude/video-courte/scripts/*.md` et `index-videos.md`. Les flagger en tête : `Déjà couverts : ...`.
 - **Max 15 angles** (ou `max_ideas` dans `scrapper/config.json`).
 - **Langue** : angles en français même si les posts sont en anglais.
 - **Tags GitHub** : inclure les `topics` pour que l'utilisateur voie rapidement le sujet (ex: `[llm, rag, python]`).
@@ -71,6 +90,13 @@ N. **"[repo] a explosé cette semaine — [angle : démo / comparatif / tuto]"**
 Après la liste, propose :
 - "Tu veux que je transforme l'idée N°X en script via `/short-script` ?"
 - "Tu veux élargir la liste de comptes dans `scrapper/config.json` ?"
+
+### Étape 5 — Mise à jour de l'index quand un sujet est validé
+
+Quand l'utilisateur choisit un angle pour le transformer en script, **proposer
+d'ajouter une entrée dans `~/Desktop/ai-claude/video-courte/index-videos.md`**
+(format : `- [slug] — angle court — date`). Cela évite que le sujet remonte
+dans la prochaine itération de `video-ideas`.
 
 ## Config
 

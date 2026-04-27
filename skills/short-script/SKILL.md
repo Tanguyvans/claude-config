@@ -53,6 +53,15 @@ Marqueurs de style :
 - Phrases courtes, mais toujours complètes et naturelles à l'oral. Chaque phrase doit sonner comme si tu la disais vraiment devant une caméra, avec les mots de liaison nécessaires pour que ça coule
 - JAMAIS de tirets longs (—). Utiliser des virgules, des points, ou reformuler la phrase
 - JAMAIS de deux-points (:) dans le corps du script. Reformuler en phrase complète
+- **"un skill / le skill" au masculin** partout (jamais "une skill" / "la skill")
+- Pas de marqueurs genres / familiers ("un mec", "un gars") → préférer "un dev", "quelqu'un", "une personne"
+- Pas de fillers marketing creux ("Le plus fou,", "Petit détail,", "le truc fou", "cerise sur le gâteau"). Entrer directement dans le fait
+- Pas de clichés "fire and forget" / "tu pars boire un café" → préférer du neutre concret ("tu lances en arrière-plan")
+- **Les 2 dernières phrases du corps font 12+ mots chacune** (pas de phrases télégraphiques en fin de corps)
+- **La dernière phrase du corps est complète** (sujet + verbe), pas un fragment descriptif
+- **Chaque chiffre cité est suivi de son impact concret** pour le viewer (coût, gain de temps, hallucinations évitées), pas juste de la comparaison brute
+- Formulations concrètes ("tu vois combien tu crames dans X") préférées aux abstraites ("quel pourcentage de X vient de Y")
+- Nommer la chose par son **type exact** (commande, flag, raccourci, skill, repo) plutôt que "outil" générique
 - Mots anglais gardés tels quels quand c'est naturel (hook, screen, tool, benchmark, token, vibe-coding)
 - Pas de formules creuses, on rentre directement dans le vif
 - Pas de "ensuite", "de plus", "par ailleurs", les transitions sont implicites
@@ -115,16 +124,44 @@ Si le sujet est dense, coupe des détails plutôt que de dépasser. La concision
 Quand on te donne un sujet :
 
 1. **Lire GOTCHAS.md** et FEEDBACK.md avant toute génération
-2. **Rechercher du contexte** : si le sujet est un repo GitHub, lire le README réel (pas juste un résumé). Si c'est une news, chercher les réactions/tweets viraux pour trouver le meilleur angle
-3. Identifie la catégorie (repo, news, tuto, comparatif)
-4. **Proposer 3+ options de hook** avec des angles variés (curiosité, frustration, nouveauté...). Attendre la validation de l'utilisateur avant d'écrire le script complet
-5. Si plusieurs angles sont possibles pour le corps, **demander l'angle principal** avant d'écrire
-6. Écris le script complet en respectant le format exact
-7. **Fact-check** : vérifier chaque affirmation technique contre la source réelle. Ne pas reprendre les claims d'un résumé sans vérifier. Nommer les benchmarks quand on cite un score
-8. **Passe anti-répétition** : relire le script pour éliminer les mots/structures répétés ("Le repo", "Il", "aussi")
-9. Vérifie le nombre de mots du script, doit être entre 80 et 130
-10. **Checklist pré-livraison** (voir ci-dessous)
-11. Si c'est trop long, coupe. Chaque phrase doit mériter sa place
+2. **Cadrage avant écriture** :
+   - Position de l'utilisateur par rapport au sujet (créateur / utilisateur / observateur) — éviter "j'ai écrit X" si l'user n'est pas l'auteur
+   - Si le sujet reprend une vidéo / article source : demander si l'user veut **citer la source, paraphraser, ou ignorer** (éviter plagiat involontaire)
+   - Si un screenshot dicte le contenu : demander "version littérale du screenshot, ou version générique ?"
+3. **Rechercher du contexte** : si le sujet est un repo GitHub, lire le README réel (pas juste un résumé). Si c'est une news, chercher les réactions/tweets viraux pour trouver le meilleur angle
+4. Identifie la catégorie (repo, news, tuto, comparatif, listicle)
+5. **Proposer 3+ options de hook** avec des angles variés (curiosité, frustration, nouveauté...). Pour chaque option, ajouter une **auto-critique courte** (1 ligne sur sa faiblesse) + un **pick justifié**. Attendre la validation de l'utilisateur avant d'écrire le script complet
+6. **Pour les chiffres comparatifs en hook** : vérifier contre la **source primaire** (site officiel, doc API, page pricing) AVANT de proposer. Pas de Medium / blog / résumé LLM. Citer la source et le statut de vérification dans le brief
+7. Si plusieurs angles sont possibles pour le corps, **demander l'angle principal** avant d'écrire
+8. Écris le script complet en respectant le format exact
+9. **Fact-check** : vérifier chaque affirmation technique contre la source réelle. Ne pas reprendre les claims d'un résumé sans vérifier. Nommer les benchmarks quand on cite un score. Pour tout fait extraordinaire, préciser la source ET le statut de vérification
+10. **Passe anti-répétition** : relire le script pour éliminer les mots/structures répétés ("Le repo", "Il", "aussi"). Vérifier qu'aucun mot-clé saillant n'est répété entre les 10 derniers mots du hook et les 10 premiers mots du corps
+11. **Auto-critique honnête avant livraison** (flow logique, phrases bancales, anglicismes inutiles, fillers marketing) — ne pas attendre que l'user demande
+12. Vérifie le nombre de mots du script, doit être entre 80 et 130 (sauf listicle)
+13. **Checklist pré-livraison** (voir ci-dessous)
+14. Si c'est trop long, coupe. Chaque phrase doit mériter sa place
+
+## Cas particuliers
+
+### Listicle (N tips / conseils / étapes)
+Autoriser énumération `Un. / Deux. / ...` et relaxer la limite 60-100 mots du corps.
+
+### CTA contextuel
+- Sujet **avec URL externe** (repo, outil, démo) → CTA par défaut "Voilà l'URL et à demain."
+- Sujet **sans URL externe** (tuto feature native, news, opinion) → CTA d'engagement (like / abonne) ou pas de CTA. Demander si ambigu.
+
+### Validation partielle de critiques
+- Quand tu proposes plusieurs critiques (hook + corps + CTA), explicite que chaque élément est **validable séparément**
+- "Je préfère mon X" = "garde X et tout le reste de la version actuelle". JAMAIS cumuler les autres modifs non validées
+- "On était sur un truc comme ça [version]" → prendre cette version comme **baseline verbatim**, ne rien changer hors du périmètre demandé
+
+### Dictée brute de l'utilisateur
+- L'user colle un CTA / fin de corps brut avec fautes → contenu **verbatim à intégrer** (corriger juste l'orthographe), pas un brief à paraphraser
+- 2+ phrases sans marker `[HOOK]`/`[CORPS]` → demander "1 phrase en hook + Y en corps ?" avant de livrer
+- Si la dictée fait < 12 mots en fin de corps → flagger le conflit avec la règle 12+ mots ET proposer une v2 alternative
+
+### Post-tournage (vidéo déjà filmée)
+Proposer de re-transcrire le MP4 avec whisper + nettoyer les coquilles + reformater HOOK/CORPS/CTA — utile quand l'user a improvisé et veut récupérer le script réel.
 
 ## Checklist pré-livraison
 

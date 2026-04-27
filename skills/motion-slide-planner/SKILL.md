@@ -19,6 +19,10 @@ description: >
 - **Toujours définir une cohérence visuelle globale** avant de décrire les slides individuelles — sinon les scènes produisent un mix de styles incohérent (pixel art, flat, photo, SVG)
 - **Si le sujet est un produit avec une UI accessible en ligne** : proposer SYSTÉMATIQUEMENT un mix slides animées (concepts) + screen recording (démo réelle). Ne jamais recréer une UI en composants si elle existe déjà en live.
 - **Les slides d'intro et outro** doivent proposer un visuel de fond ou une image générée — pas juste logo + texte
+- **Densité d'une slide : max 2 éléments principaux** (un hero + un support). Si la scène demande 3+ éléments importants → splitter en 2 slides. Une slide chargée (radar + score + 4 offres + rejets animés) sera systématiquement perçue comme "pas dingue" au rendu.
+- **Marques connues mentionnées dans le script** (OpenAI, Google, Anthropic, ChatGPT, Flux, GitHub...) : annoter explicitement dans la prose `logo réel via logo-fetcher → public/logos/{marque}_logo.png`. Sinon le développeur Remotion code un SVG custom et l'utilisateur exige une reprise.
+- **Personnages expressifs** (KO, victoire, posture, émotion) : recommander `fal-generate` avec prompt sprite ("pixel art sprite, 16-bit retro, chunky pixels, white background"), PAS `pixel-character-template`. Les grilles PixelChar marchent pour icônes simples (★, ❤, cube), pas pour des poses expressives.
+- **Timing de vérification d'une slide animée** : recommander un still à 60-70% de la durée slide, pas le milieu pile. Les animations à `delay 90+ frames` ne sont pas encore visibles au milieu — l'utilisateur les croit absentes.
 
 Tu reçois un script vidéo et tu produis un brief de slides pour Remotion : chaque slide est décrite comme une **scène visuelle** en prose, avec un titre, un timing, et une description riche de ce qu'on voit à l'écran.
 

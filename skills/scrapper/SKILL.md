@@ -84,11 +84,50 @@ Pour économiser : lance `--only=twitter` ou `--only=github` si l'utilisateur ve
 
 ## Limites connues
 
+### Pas de YouTube
+Le scrapper **ne couvre pas YouTube**. Pour les transcripts YouTube, utiliser `yt-dlp` directement :
+```bash
+yt-dlp --write-auto-subs --skip-download --sub-lang fr,en "https://youtu.be/VIDEO_ID"
+```
+
 ### Twitter via ScrapeCreators
 L'endpoint `/v1/twitter/user-tweets` **ne renvoie pas les tweets récents uniquement** — c'est un échantillon de ~100 top tweets étalés sur plusieurs années. Pas de filtre `date` disponible. Pour obtenir du récent, il faut filtrer côté Claude après coup en regardant `posted_at`.
 
 ### Handles incertains
 Certains labs d'IA asiatiques ont des handles X qui changent. Si tu vois `[skip] x/Zai_org: 404` en stderr, c'est que le handle est faux — corrige dans `config.json`.
+
+### Format `github.js` incohérent avec les autres
+`github.js` n'expose **pas** `count` / `posts` au niveau racine — uniquement `tiers` + `repos`. Les autres scripts (`x.js`, `tiktok.js`, `instagram.js`) exposent `count` + `posts`. Pour parser uniformément côté consommateur :
+- `posts` → `x.js`, `tiktok.js`, `instagram.js`
+- `repos` → `github.js`
+Ne pas faire `d.platforms.github.count` ou `d.platforms.github.posts` — ça tombera sur 0/undefined.
+
+### TikTok handle inexistant → fallback `/search/users`
+Si `tiktok.js --handle=X` renvoie 0 vidéo, le handle est probablement faux. Avant d'abandonner, tenter le fallback :
+```bash
+curl -H "x-api-key: $SCRAPECREATORS_API_KEY" \
+  "https://api.scrapecreators.com/v1/tiktok/search/users?query=X"
+```
+pour suggérer les variantes existantes (ex: `maven` → `maven_hq`).
+
+### Seuils d'engagement TikTok pour comptes niche
+`engagement_threshold.tiktok.diggs_min: 5000, views_min: 100000` écarte tous les contenus de comptes niche (top vidéo à 57k vues = filtré). Pour des **comptes nommément demandés par l'utilisateur**, baisser à `diggs_min: 50, views_min: 500` ou désactiver le filtrage. Le seuil ne s'applique qu'aux hashtags, pas aux handles ciblés.
+
+### Transcript TikTok (pas exposé dans `tiktok.js`)
+L'endpoint `/v1/tiktok/video/transcript` retourne le transcript WEBVTT d'une vidéo. Utile pour analyser une vidéo source avant un script. À appeler manuellement :
+```bash
+curl -H "x-api-key: $SCRAPECREATORS_API_KEY" \
+  "https://api.scrapecreators.com/v1/tiktok/video/transcript?url=VIDEO_URL"
+```
+
+## Solde de crédits ScrapeCreators
+
+**Avant de lancer `x.js` / `all.js`** : vérifier rapidement le solde. Lancer un scrape qui boucle sur 25 comptes alors que le solde est à 0 brûle 25 tentatives 402 silencieuses. Vérification :
+```bash
+curl -s -H "x-api-key: $SCRAPECREATORS_API_KEY" \
+  "https://api.scrapecreators.com/v1/account" | jq .credits_remaining
+```
+Si solde = 0 ou < N (où N = nombre de comptes à scraper) → afficher `[warn] N credits left, skipping twitter` et passer au scraper suivant (github, gratuit).
 
 ## Éditer la config
 

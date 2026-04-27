@@ -17,6 +17,9 @@ Generate images and videos using state-of-the-art AI models on fal.ai.
 - **`--add-fal-key` sans argument** ne fait rien d'utile — toujours guider l'utilisateur vers la syntaxe complète : `export FAL_KEY=your_key` ou éditer le `.env`
 - **Labels textuels dans l'image** (ex: "robot labeled 'GPT 5.5'") → rendu non fiable (mots tronqués, caractères inventés). Prévenir l'utilisateur. Alternatives : (a) image sans texte + overlay CSS côté consommateur, (b) `<SketchImage>` placeholder dans le carrousel, (c) flux-kontext (meilleur pour le texte)
 - **Fond transparent** : même avec "transparent background" dans le prompt, la plupart des modèles renvoient un fond blanc solide. Pour intégration sur fond coloré : utiliser `mixBlendMode: multiply` en CSS/Remotion, ou basculer sur flux-kontext + rembg pour vraie transparence
+- **Aspect ratio arbitraire** (`16:9`, `21:9`, `9:16`, `4:1`...) : `generate.sh --size` ne couvre que `square|portrait|landscape`. Pour un AR spécifique sur les modèles modernes (nano-banana-2, nano-banana-pro, gpt-image-2), utiliser `--aspect-ratio="16:9"` (passé directement en payload) ou contourner via curl direct sur l'API queue
+- **gpt-image-2 (backend OpenAI) filtre les références IP/franchises** plus agressivement que nano-banana. Erreur typique : `downstream_service_error` peu lisible. Éviter les noms propres de cartoons / films / jeux / marques — préférer des descriptions génériques ("animated TV show style, thick black outlines, flat colors")
+- **Cohérence stylistique entre plusieurs sprites** : répéter le même préfixe de style mot pour mot dans chaque prompt (ex: "pixel art sprite, 16-bit retro game style, chunky square pixels, white background, centered character, classic street fighter / video game style"). Ne pas laisser le modèle interpréter — la moindre variation casse la direction artistique
 
 ## Scripts
 
@@ -312,6 +315,10 @@ FAL_KEY=your_key_here
 Puis recharger : `source ~/.claude/skills/fal-generate/.env`
 
 > Note : `--add-fal-key` sans argument ne fait rien — utiliser directement `export` ou éditer le `.env`.
+
+### `search-models.sh` pollue stdout
+
+`search-models.sh` émet `Searching fal.ai models...` et `Found N models` sur stdout avant le JSON. Casse `search-models.sh | jq ...`. Workaround : rediriger les messages d'info sur stderr avec `2>/dev/null`, ou parser manuellement en sautant les premières lignes. À fixer dans le script (envoyer info messages sur stderr).
 
 ### FAL_KEY perdue entre sessions
 

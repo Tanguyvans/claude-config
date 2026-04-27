@@ -15,6 +15,39 @@ description: >
 
 Tu génères des personnages pixel art pour des vidéos Remotion. Tu disposes d'une galerie de personnages pré-définis avec 3 poses chacun (idle, happy, working), tous dessinés en dur.
 
+## Quand NE PAS utiliser ce skill
+
+PixelChar est conçu pour des **icônes simples et stylisées** (cube mascotte, robot pixel, dev minimaliste, étoile, cube, cœur). Il n'est PAS adapté pour :
+
+- **Personnages avec posture/émotion forte** (KO allongé, boxeur victorieux, wallet qui pleure) — les grilles faites main sont peu lisibles. Utiliser `fal-generate` avec un prompt sprite ("pixel art sprite, 16-bit retro, chunky pixels, white background") + `mixBlendMode: multiply` côté Remotion
+- **Slides déjà denses en UI mockups** où un personnage en plus alourdit la composition
+- **Sujets non-narratifs / formats tutoriel pur** (commande terminal, doc API) où le personnage est juste décoratif et n'apporte pas
+
+Si le script ne dit pas "toi", "tu", ou ne désigne pas explicitement une figure humaine au moment de la slide, ne pas glisser un personnage par défaut.
+
+## `pixelSize` par format
+
+Le `pixelSize` (taille d'un pixel rendu en CSS) doit être calibré au format de la slide pour que le personnage soit lisible :
+
+| Format | `pixelSize` recommandé | Hauteur perso typique |
+|--------|------------------------|------------------------|
+| 16:9 1920×1080 (4:3 desktop) | 6 | ~130-150px |
+| 1:1 1080×1080 (short carré) | 10-12 | ~250-300px |
+| 9:16 1080×1920 (gros plan) | 14 | ~350-400px |
+
+À 1080×1080, `pixelSize: 8` produit un perso d'environ 130px de haut — visuellement écrasé dans le canvas. Toujours tester un still avant de valider.
+
+## Variantes d'une pose existante
+
+Plutôt que de créer un nouveau personnage pour une micro-variation (bouche triste au lieu de sourire, yeux fermés au lieu d'ouverts) :
+
+1. Copier la grille de la pose existante la plus proche (ex: `DEV_IDLE`)
+2. Documenter les pixels modifiés en commentaire en tête de la nouvelle constante (`DEV_SAD = ... // bouche : (5,12) → ' ', (6,12) → '_'`)
+3. Garder la même tête/silhouette — seuls les pixels d'expression changent
+4. Exporter sous un nom explicite (`DEV_SAD`, `DEV_EYES_CLOSED`)
+
+Cela évite de recréer un personnage complet pour des micro-variations et garantit la cohérence visuelle entre poses.
+
 ## Comment ça marche
 
 ### 1. Consulte l'index

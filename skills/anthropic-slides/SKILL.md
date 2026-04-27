@@ -11,12 +11,17 @@ description: Generate Remotion video slides with Anthropic's visual design langu
 ## Règles dures
 
 - **TOUJOURS demander ou suggérer un thème au démarrage** — ne jamais defaulter silencieusement sur Anthropic
+- **TOUJOURS demander ou inférer le format au démarrage** — `1920×1080` (16:9 desktop) ou `1080×1080` (1:1 short TikTok/Reels). Le `/video` command exige 1:1 par défaut → aligner LAYOUT.width/height en conséquence
 - **Si le sujet jure visuellement avec le style Anthropic** (ex: caveman, terminal, dark hacker) → proposer un thème adapté
 - **Un thème = un seul fichier `theme.ts` à swapper** — les slides importent toutes depuis `theme.ts`
 - **Toutes les slides utilisent `COLORS.background` comme fond** — sauf si le script mentionne explicitement un fond différent. Ne jamais interpréter un "terminal sombre" comme un changement de fond global (styler le contenu en carte, pas le fond de slide)
 - **Après tout changement de thème ou de typographie** : re-render toutes les slides et vérifier qu'aucun conteneur fixe ne déborde (`overflow: hidden` ou vérification visuelle)
 - **Pour un sujet de type repo GitHub** : proposer systématiquement une slide finale avec l'URL en grand par défaut
 - **Labels flottants** : positionner absolument par rapport au conteneur de slide (coordonnées explicites), pas relativement au parent — le parent peut changer de taille et casser le layout
+- **Stack vertical de cartes** : utiliser `display: flex; flexDirection: column; gap: ...` — JAMAIS `top: absolute` calculé à la main (le stack casse dès que le padding d'une carte change)
+- **Titres** : ajouter `marginTop: 60-80` par défaut au titre du SlideFrame — sinon il colle visuellement trop haut, même avec topSafeArea respecté
+- **Animations "chute / cascade d'items"** : varier `targetY` par index (`base + i * gap`), pas seulement le `delay`. Sinon tous les items atterrissent au même endroit → pile visuelle quand `progress = 1`
+- **Vérification still d'une slide animée** : choisir un frame au milieu+ (ex: 60-70% de la durée), pas le milieu pile — les animations à `delay 90+` ne sont pas encore apparues à 50%, on croit à tort qu'elles manquent
 
 ## Choisir un thème
 
@@ -134,24 +139,41 @@ export const SPACING = {
   '4xl': 96,
 };
 
+// 16:9 desktop (1920x1080) — preset par défaut hors /video
 export const LAYOUT = {
-  // Video dimensions (1080p standard)
   width: 1920,
   height: 1080,
-
-  // Content area padding
   padding: 80,
   contentMaxWidth: 1600,
-
-  // Card properties
   cardRadius: 16,
   cardPadding: 24,
   cardShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
-
-  // Icon size in cards
   iconSize: 48,
+  topSafeArea: 0,            // pas de zone UI réservée
+  titleMarginTop: 60,        // évite que le titre colle trop haut
+};
+
+// 1:1 square (1080x1080) — preset par défaut quand invoqué via /video (TikTok/Reels)
+export const LAYOUT_SQUARE = {
+  width: 1080,
+  height: 1080,
+  padding: 60,
+  contentMaxWidth: 960,
+  cardRadius: 16,
+  cardPadding: 20,
+  cardShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
+  iconSize: 40,
+  topSafeArea: 120,          // zone UI plateforme — header/title commence après
+  titleMarginTop: 60,        // toujours pousser le titre 60-80px sous topSafeArea
 };
 ```
+
+### Adaptations 1:1 (short vertical/square)
+
+- **Empiler verticalement** au lieu de rangées horizontales — pas de "rows de 3-4 cards" qui marchent en 16:9
+- **Moins d'éléments par slide** — 2 max (vs 3-4 en 16:9)
+- **`topSafeArea: 120`** réservé pour la zone UI plateforme (TikTok/Reels) — rien ne doit chevaucher
+- **`SlideShellShort`** : variante de `SlideFrame` qui hardcode `topMargin = 120`
 
 ### Animation Principles
 
@@ -223,6 +245,11 @@ export const ANIMATION = {
 - Simple centered text
 - Used between major sections
 - Can use accent background color
+
+### 9. Split Card Slide
+- **Une seule carte blanche unifiée** avec divider central (vertical ou horizontal)
+- Deux zones côte-à-côte (ex: radar gauche + score droit, before/after, problème/solution)
+- Pattern visuellement plus solide que deux cards séparées flottantes — utiliser quand l'utilisateur trouve "deux cards séparées" trop éclatées
 
 ## Remotion Implementation Rules
 

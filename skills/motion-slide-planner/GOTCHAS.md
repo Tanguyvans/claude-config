@@ -30,6 +30,15 @@ Erreurs récurrentes à vérifier AVANT de livrer le brief.
 
 - [ ] Pour vérifier une slide via still, choisir un frame à 60-70% de la durée slide (pas milieu pile)
 
+## Audio / timings
+
+- [ ] Si MP4 face-cam fourni → whisper word-level AVANT le découpage (pas de timings nominaux 5s/slide)
+- [ ] Caler les cuts sur le 1er mot de chaque idée, pas sur les segments whisper bruts
+
+## Invocation
+
+- [ ] Si l'utilisateur nomme explicitement `motion-slide-planner` dans son brief → invoquer le skill, même si la planification inline semble suffisante
+
 ## Process
 
 - [ ] Lire FEEDBACK.md et GOTCHAS.md avant de générer

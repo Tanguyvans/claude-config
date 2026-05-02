@@ -23,6 +23,8 @@ description: >
 - **Marques connues mentionnées dans le script** (OpenAI, Google, Anthropic, ChatGPT, Flux, GitHub...) : annoter explicitement dans la prose `logo réel via logo-fetcher → public/logos/{marque}_logo.png`. Sinon le développeur Remotion code un SVG custom et l'utilisateur exige une reprise.
 - **Personnages expressifs** (KO, victoire, posture, émotion) : recommander `fal-generate` avec prompt sprite ("pixel art sprite, 16-bit retro, chunky pixels, white background"), PAS `pixel-character-template`. Les grilles PixelChar marchent pour icônes simples (★, ❤, cube), pas pour des poses expressives.
 - **Timing de vérification d'une slide animée** : recommander un still à 60-70% de la durée slide, pas le milieu pile. Les animations à `delay 90+ frames` ne sont pas encore visibles au milieu — l'utilisateur les croit absentes.
+- **Si un `.mp4` face-cam est fourni dans le brief** : étape 0 = transcrire avec whisper word-level AVANT le découpage en slides. Les timings nominaux (5s/slide) divergent du vrai débit parlé — recaler sur l'audio évite un re-pass post-skill.
+- **Si l'utilisateur nomme explicitement ce skill** dans son brief (même quand la planification inline d'un autre skill semble suffisante) : l'invoquer. Ne pas planifier en inline si le skill est nommé.
 
 Tu reçois un script vidéo et tu produis un brief de slides pour Remotion : chaque slide est décrite comme une **scène visuelle** en prose, avec un titre, un timing, et une description riche de ce qu'on voit à l'écran.
 
@@ -34,7 +36,17 @@ L'objectif n'est pas de générer du code Remotion — c'est de produire des des
 
 ## Processus
 
-### 0. Évaluer si un screen recording est pertinent
+### 0. Si MP4 face-cam fourni → whisper word-level d'abord
+
+Si le brief inclut un `.mp4` (face-cam ou voix-off) :
+
+```bash
+whisper input.mp4 --model base --word_timestamps True --output_format json
+```
+
+Utiliser ces timings réels pour découper les slides — pas les estimations nominales (5s/slide). Ça évite un re-pass post-skill pour réaligner les cuts au vrai débit parlé.
+
+### 0b. Évaluer si un screen recording est pertinent
 
 **Avant de planifier les slides** : si le sujet est un produit ou outil avec une interface accessible en ligne, proposer explicitement :
 

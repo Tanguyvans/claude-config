@@ -179,6 +179,10 @@ Avant de livrer le script, vérifier chaque point :
 - [ ] Nombre de mots entre 80 et 130
 - [ ] Pas d'énumérations type catalogue
 - [ ] Conclusion/CTA = takeaway actionnable, pas une formule "mind-blown" générique
+- [ ] **Aucun chiffre fabriqué** absent d'une source vérifiée (rester qualitatif si la source est qualitative)
+- [ ] **Séquence chronologique vérifiée** : si A dépend de B, B vient avant A dans le corps
+- [ ] **Cohérence hook ↔ corps** : aucun chiffre du hook contredit/nuancé par le corps
+- [ ] **1 phrase parlée = 1 règle atomique** : pas de fusion de 2 règles du source dans une même phrase
 
 ## Ce qu'il faut éviter
 

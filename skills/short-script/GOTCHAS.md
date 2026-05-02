@@ -70,5 +70,24 @@ Erreurs recurrentes a verifier AVANT de livrer. Lire cette liste a chaque execut
 - [ ] CTA "Voila l'URL et a demain." par defaut **uniquement quand il y a une URL externe** (repo, outil, demo)
 - [ ] Sujets sans URL externe (tuto feature native, news, opinion) → CTA d'engagement (like / abonne) ou pas de CTA. Demander si ambigu
 
+## Atomicite des regles citees
+- [ ] **1 phrase parlee = 1 regle atomique** du fichier source. Ne JAMAIS fusionner 2 regles distinctes en une seule phrase ("si tu ecris 200 lignes en 50 si un dev senior trouverait ca overcomplicated") — illisible a l'oral
+- [ ] Quand le source addresse Claude en 2e personne ("you must X") : traduire au pattern "le fichier oblige Claude a X. A Y. A Z." plutot que tutoyer directement (ambiguite viewer/Claude)
+
+## Contraintes negatives en amont
+- [ ] Avant de proposer les hooks, demander **"des contraintes type 'pas mentionner X' ?"** (ex: "ne pas mentionner le post viral", marques a eviter). Sinon re-roll force apres coup
+
+## Confirmation de pick
+- [ ] Quand l'user dit "option C dans le style", confirmer brievement "OK je pars sur C tel que propose" avant d'ecrire — leve l'ambiguite "garde C verbatim" vs "garde le ton de C mais reformule"
+
+## Reformulation "trop technique"
+- [ ] 1ere passe quand l'user signale "trop technique" : sabrer aussi les **concepts** (rate limit, req/min, base URL), pas juste les acronymes (API key → cle). Retablir si l'user veut + de precision
+- [ ] Quand l'user pousse vers une formulation honest, proposer 2-3 reformulations en 1 message (cap technique precis / formulation marketing-honest / verbatim user adapte), pas iterer 1-by-1
+
+## Verifs de coherence interne (avant livraison)
+- [ ] **Ne JAMAIS inventer un chiffre absent d'une source verifiee.** Si la source est qualitative ("fleet of agents"), rester qualitatif ("une equipe", "plusieurs", "toute une flotte"). Pas de "5 lead devs" fabrique pour rendre concret
+- [ ] **Simuler mentalement la sequence d'actions** : si A depend de B, B doit venir avant A dans le corps (ex: "tu fermes le terminal pendant que ca mouline" doit venir APRES "tu lances sur ta branche")
+- [ ] **Coherence hook ↔ corps** : aucun chiffre du hook ne doit etre contredit/nuance par le corps (hook "20 dollars" + corps "5 a 20 dollars selon la taille" = incoherence a fixer)
+
 ## Post-tournage (optionnel)
 - [ ] Si l'user a deja tourne la video : proposer de re-transcrire le MP4 avec whisper, nettoyer les coquilles, reformater HOOK/CORPS/CTA

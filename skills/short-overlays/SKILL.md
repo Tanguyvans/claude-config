@@ -55,6 +55,12 @@ bruitages — prêt à publier sur TikTok / Reels / Shorts.
 
 ## Process
 
+### 0. Vérifier le cadrage face-cam et invoquer les skills nommés
+
+- **Demander où est le visage** dans le rush (haut/centre/bas) AVANT de définir `objectPosition`. Ne jamais defaulter sur `'center 30%'`. Si pas clair : extraire un thumbnail (`ffmpeg -ss 1 -frames:v 1 input.mp4 thumb.jpg`) et confirmer.
+- **Si l'user dit "slides en haut" et que le visage est cadré bas** → pattern face-cam plein écran + slides en overlay bleed-to-top (PAS un crop 50/50).
+- **Si l'user nomme explicitement un autre skill** (ex: `motion-slide-planner`) dans son brief → l'invoquer, ne pas planifier inline.
+
 ### 1. Récupérer les inputs
 
 - **MP4 face-cam** : chemin absolu fourni par l'utilisateur (souvent

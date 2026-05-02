@@ -64,7 +64,7 @@ export const COLORS = {
   blue: '#D6E4F0',             // Team Chat, Chat features
   blueMedium: '#B8D4E8',       // Hover/active state
   yellow: '#F5E6C8',           // Cowork, central hub
-  yellowMedium: '#EDDA B0',    // Hover/active state
+  yellowMedium: '#EDDAB0',     // Hover/active state
   green: '#D5E8D4',            // Code, Shared Docs
   greenMedium: '#BFD9BE',      // Hover/active state
   pink: '#F5D4C8',             // Admin Tools, alerts
@@ -166,7 +166,30 @@ export const LAYOUT_SQUARE = {
   topSafeArea: 120,          // zone UI plateforme — header/title commence après
   titleMarginTop: 60,        // toujours pousser le titre 60-80px sous topSafeArea
 };
+
+// 9:16 vertical (1080x1920) — TikTok / Reels / Shorts plein écran
+export const LAYOUT_VERTICAL = {
+  width: 1080,
+  height: 1920,
+  padding: 50,               // un peu plus serré qu'en 16:9 pour respirer en hauteur
+  contentMaxWidth: 980,
+  cardRadius: 20,
+  cardPadding: 24,
+  cardShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
+  iconSize: 44,
+  topSafeArea: 220,          // zone UI plateforme TikTok haute (handle, captions auto)
+  bottomSafeArea: 340,       // zone UI plateforme TikTok basse (CTA, description)
+  titleMarginTop: 60,
+};
 ```
+
+### Adaptations 9:16 (vertical TikTok/Reels)
+
+- **`h1` de cover** : 96-120px (vs 56px en 16:9 — sinon perdu dans le format haut)
+- **`padding`** : 50 (vs 80 en 16:9) — 80 mange trop d'espace utile en vertical
+- **`topSafeArea: 220`** + **`bottomSafeArea: 340`** — zones UI TikTok masquées
+- Empiler verticalement avec `gap: 32-40` — l'espace vertical est l'avantage du format
+- Maximum 3 éléments par slide (vs 2 en 1:1, 3-4 en 16:9)
 
 ### Adaptations 1:1 (short vertical/square)
 

@@ -19,6 +19,18 @@ Erreurs récurrentes à vérifier AVANT de livrer une cover. Lire à chaque exé
 - [ ] `justifyContent: 'center'` → safe grille profil, mais cache souvent la tête.
 - [ ] Demander à l'utilisateur lequel des deux trade-offs il accepte. Ne pas choisir tout seul.
 - [ ] Ne jamais aller en-dessous de `paddingBottom: 380` (zone caption TikTok mange y > 1540).
+- [ ] **Heuristique selon position du visage** : visage cadré haut → `paddingBottom: 540`, visage centré → 380, visage cadré bas → 280-320. Demander en amont si pas évident.
+
+## Layout split (slide haut + face-cam bas)
+
+- [ ] **Étape 0** : `grep -E "FaceCam|Sequence.*Slide" src/Main.tsx` → si match (pattern open-codesign), **defaulter sur le template split** (`HookSlide statique en haut / face-cam en bas`), PAS le pattern cartouche
+- [ ] En split layout, **PAS de bandeau bas par défaut** — le titre est déjà dans la slide top. L'user le demande explicitement s'il veut le rajouter
+- [ ] Si ambigu (Main.tsx mixte), demander : "split slide/face-cam (template open-codesign) ou fullscreen+cartouche (template par défaut) ?"
+
+## Auto mode
+
+- [ ] Si auto mode actif et le skill demande un pick frame → auto-pick avec heuristique "visage net + bouche fermée + mains hors champ" et flagger explicitement le pick à l'user
+- [ ] **Une décision par question** — jamais combiner "frame N° + hook A/B/C + titre 1/2/3" dans une seule question (l'user répond ambigu)
 
 ## Wording
 

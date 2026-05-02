@@ -38,6 +38,18 @@ Tu prends un projet Remotion `short-overlays` existant (structure standard avec
 
 ## Workflow
 
+### 0. Détection du layout du projet (split vs fullscreen)
+
+Avant tout, déterminer le pattern du projet Remotion :
+
+```bash
+grep -E "FaceCam|Sequence.*Slide" PROJECT_DIR/src/Main.tsx
+```
+
+- **Match** (FaceCam fullscreen + Sequence avec slides en overlay, pattern `open-codesign`) → utiliser le **template split** : HookSlide statique en haut / face-cam en bas. **PAS de bandeau bas par défaut.**
+- **Pas de match** → template par défaut (fullscreen face-cam + cartouche centré-bas).
+- **Ambigu** → demander à l'user : "split slide/face-cam ou fullscreen+cartouche ?"
+
 ### 1. Récupérer les inputs
 
 - **Project dir** : chemin absolu du projet Remotion (ex:

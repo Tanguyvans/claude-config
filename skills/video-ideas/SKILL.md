@@ -85,6 +85,30 @@ N. **"[repo] a explosé cette semaine — [angle : démo / comparatif / tuto]"**
 - **Langue** : angles en français même si les posts sont en anglais.
 - **Tags GitHub** : inclure les `topics` pour que l'utilisateur voie rapidement le sujet (ex: `[llm, rag, python]`).
 
+### Étape 3.5 — Shape réelle du JSON scrapper
+
+Le JSON `/tmp/video-ideas.json` produit par `all.js` est imbriqué — pas un tableau plat. Lire :
+
+```js
+const data = JSON.parse(fs.readFileSync('/tmp/video-ideas.json'));
+data.platforms.twitter.posts   // tweets X
+data.platforms.github.repos    // repos GitHub (pas .posts ni .count)
+data.platforms.tiktok.posts
+data.platforms.instagram.posts
+```
+
+**Ne pas** faire `data.twitter[]` ni `data.platforms.github.count` — ça casse silencieusement.
+
+### Étape 3.6 — Fallback GitHub pour repos hors-fenêtre
+
+La fenêtre par défaut de `github.js` (30 jours) rate les repos plus vieux mais toujours trending (ex: `forrestchang/andrej-karpathy-skills` créé fin janvier, 90k stars). Quand l'user demande "est-ce qu'il y a un repo à X stars sur Y" et que le scrape ne le trouve pas → fallback :
+
+```bash
+gh search repos "Y" --sort stars --limit 10 --json name,stargazerCount,description,url
+# ou pour vérifier une claim spécifique :
+gh api "repos/owner/name" --jq '{name, stars: .stargazers_count, created: .created_at}'
+```
+
 ### Étape 4 — Proposer les suites
 
 Après la liste, propose :

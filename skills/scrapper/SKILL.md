@@ -93,6 +93,15 @@ yt-dlp --write-auto-subs --skip-download --sub-lang fr,en "https://youtu.be/VIDE
 ### Twitter via ScrapeCreators
 L'endpoint `/v1/twitter/user-tweets` **ne renvoie pas les tweets récents uniquement** — c'est un échantillon de ~100 top tweets étalés sur plusieurs années. Pas de filtre `date` disponible. Pour obtenir du récent, il faut filtrer côté Claude après coup en regardant `posted_at`.
 
+### GitHub rate-limit anonyme
+Sans `GITHUB_TOKEN` dans `.env`, l'API anonyme limite à ~60 req/h. Symptôme : `github.js` qui hit le rate-limit après 2 runs proches. Soit ajouter un token (lecture publique suffit), soit cacher les résultats 1h pour amortir l'itération rapide.
+
+### Blocklist GitHub
+Pour bloquer définitivement des repos qui remontent à chaque run (ex: `OpenMythos`), ajouter `github.blocklist: ["OpenMythos", ...]` dans `config.json` et filtrer dans le post-process. Ne pas filtrer ad-hoc côté consommateur.
+
+### TikTok handle introuvable vs compte vide
+Un handle inexistant retourne `count: 0`, identique à un compte vide. Logger le statut HTTP en stderr (`[warn] tiktok/X: 404` vs `[info] tiktok/X: 200, 0 videos`) pour différencier les deux cas — sinon l'utilisateur teste 5 variantes avant de comprendre.
+
 ### Handles incertains
 Certains labs d'IA asiatiques ont des handles X qui changent. Si tu vois `[skip] x/Zai_org: 404` en stderr, c'est que le handle est faux — corrige dans `config.json`.
 

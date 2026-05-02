@@ -24,6 +24,15 @@ Erreurs récurrentes à vérifier AVANT de lancer un scrape.
 - [ ] Pour un compte ciblé par nom (vs hashtag), baisser ou désactiver `engagement_threshold.tiktok` (sinon comptes niche filtrés)
 - [ ] Pour le transcript d'une vidéo, appeler `/v1/tiktok/video/transcript` directement (pas exposé dans `tiktok.js`)
 
+## GitHub
+
+- [ ] Sans `GITHUB_TOKEN` dans `.env`, l'API anonyme rate-limit après 1-2 runs proches → ajouter un token GitHub (lecture publique suffit) ou cacher les résultats 1h
+- [ ] Blacklist de repos (ex: `OpenMythos`) → ajouter dans `config.json` sous `github.blocklist: []` et filtrer dans le post-process
+
+## TikTok — HTTP status
+
+- [ ] Un handle inexistant retourne `count: 0`, identique à un compte vide → logger le status HTTP en stderr pour différencier 404 vs vide
+
 ## Twitter
 
 - [ ] L'endpoint user-tweets ne filtre PAS par date → filtrer côté Claude après coup via `posted_at`

@@ -34,7 +34,20 @@ L'objectif n'est pas de générer du code Remotion — c'est de produire des des
 
 ## Processus
 
-### 0. Évaluer si un screen recording est pertinent
+### 0. Inputs et pré-traitement
+
+**Si un MP4 face-cam est fourni dans le brief**, faire AVANT le découpage en slides :
+
+```bash
+whisper /path/to/video.mp4 --model small --language fr \
+  --output_dir /tmp/whisper-out --word_timestamps True
+```
+
+Utiliser les timestamps word-level pour aligner les timings des slides sur le vrai débit parlé — ne pas estimer à 5s/slide. La durée réelle peut différer significativement (ex : 25.5s estimé vs 23.2s réel).
+
+**Si l'user nomme explicitement ce skill dans son brief** : l'invoquer même si la planification inline semble suffisante.
+
+### 0b. Évaluer si un screen recording est pertinent
 
 **Avant de planifier les slides** : si le sujet est un produit ou outil avec une interface accessible en ligne, proposer explicitement :
 
@@ -71,6 +84,11 @@ La description est un paragraphe fluide, pas une liste de champs. Elle inclut na
 - **Les blocs de code** : quand le script mentionne des commandes, inclus-les en bloc de code markdown dans la description
 
 Ce que la description ne contient PAS : des choix de design (couleurs, polices, fonds). On décrit le contenu et le mouvement, pas le style.
+
+**Pour les slides complexes (schémas, cycles, grilles)** : ajouter dans le brief :
+- Le layout suggéré : "grille 2×2", "flow horizontal gauche→droite", "cercle de 4 nœuds"
+- L'ordre d'apparition des éléments : "nœud 1 en haut à gauche d'abord, puis flèche vers 2, puis 2, etc."
+- Sans ça, l'implémentation risque de produire un layout cassé (nœuds trop petits, flèches unicode mal placées).
 
 ### 4. Format de sortie
 

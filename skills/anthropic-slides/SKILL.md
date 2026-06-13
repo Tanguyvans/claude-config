@@ -64,7 +64,7 @@ export const COLORS = {
   blue: '#D6E4F0',             // Team Chat, Chat features
   blueMedium: '#B8D4E8',       // Hover/active state
   yellow: '#F5E6C8',           // Cowork, central hub
-  yellowMedium: '#EDDA B0',    // Hover/active state
+  yellowMedium: '#EDDAB0',     // Hover/active state
   green: '#D5E8D4',            // Code, Shared Docs
   greenMedium: '#BFD9BE',      // Hover/active state
   pink: '#F5D4C8',             // Admin Tools, alerts
@@ -174,6 +174,24 @@ export const LAYOUT_SQUARE = {
 - **Moins d'éléments par slide** — 2 max (vs 3-4 en 16:9)
 - **`topSafeArea: 120`** réservé pour la zone UI plateforme (TikTok/Reels) — rien ne doit chevaucher
 - **`SlideShellShort`** : variante de `SlideFrame` qui hardcode `topMargin = 120`
+
+### Adaptation 9:16 (1080×1920 — TikTok vertical)
+
+Format tall pour face-cam split ou plein écran. Valeurs ajustées par rapport au 16:9 :
+
+| Propriété | 16:9 (1920×1080) | 9:16 (1080×1920) |
+|-----------|-------------------|-------------------|
+| `padding` | 80 | 48 |
+| `h1` (titre) | 72-96px | 56-72px |
+| `h2` (sous-titre) | 48px | 38px |
+| `body` | 28-32px | 24-28px |
+| `topSafeArea` | 60 | 180 (zone UI TikTok) |
+| `bottomSafeArea` | 40 | 200 (boutons TikTok) |
+| Cards max par slide | 3-4 | 2 (empilées) |
+
+- **Empiler les cartes verticalement** — jamais en rangées horizontales (trop étroit)
+- **`h1: 56px` minimum** — en dessous c'est illisible en miniature
+- **`padding: 48`** au lieu de 80 — l'espace est précieux dans ce format
 
 ### Animation Principles
 

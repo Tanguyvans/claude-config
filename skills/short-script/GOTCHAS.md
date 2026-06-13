@@ -11,6 +11,9 @@ Erreurs recurrentes a verifier AVANT de livrer. Lire cette liste a chaque execut
 - [ ] Pas de marqueurs genres / familiers ("un mec", "un gars") → preferer "un dev", "quelqu'un", "une personne"
 - [ ] Pas de fillers marketing creux ("Le plus fou,", "Petit detail,", "le truc fou", "cerise sur le gateau"). Entrer directement dans le fait
 - [ ] Pas de cliches "fire and forget" / "tu pars boire un cafe" → preferer du neutre concret ("tu lances en arriere-plan")
+- [ ] **Pas de verbes argotiques crus** (crache, vomit, balance, fout) → preferer neutre (genere, produit, sort, envoie)
+- [ ] **Pas d'intensifieur conclusion** "top/genial/trop bien/cool" → preferer "ideal/parfait/utile" ou restructurer
+- [ ] **Stars GitHub** : ne mentionner que si elles SONT l'angle (ex : "il a exploser en 48h"). Sinon, c'est du remplissage → supprimer
 
 ## Phrases du corps
 - [ ] **Les 2 dernieres phrases du corps font 12+ mots chacune** (signale 2 fois : 2026-04-19, 2026-04-21). Pas de phrases telegraphiques de 5-6 mots en fin de corps
@@ -30,10 +33,13 @@ Erreurs recurrentes a verifier AVANT de livrer. Lire cette liste a chaque execut
 - [ ] Pas de conclusion "mind-blown" generique ("la prochaine fois que ton IA repond bizarre..."). Finir sur un conseil actionnable.
 
 ## Contenu et fact-checking
+- [ ] **Script existant a ameliorer** : skip l'etape "propose 3 hooks", appliquer directement les corrections. La proposition de hooks est pour les sujets bruts, pas les scripts existants.
+- [ ] **Concepts propres (Ralph Loop, RLHF, sparse autoencoder...)** : verifier la definition avant de l'integrer — meme les concepts "connus" peuvent etre mal decrits. Un concept faux dans le script = correction apres tournage.
 - [ ] Fact-checker les claims techniques contre la source reelle (README, repo, article). Ne pas reprendre un resume sans verifier
 - [ ] Nommer le benchmark quand on cite un score. Pas de "score parfait sur les benchmarks" sans precision
 - [ ] Chiffres bruts sans contexte interdits ("500 textes", "0.09ms"). Utiliser des formulations relatives ("quasi instantane")
-- [ ] **Chaque chiffre cite est suivi de son impact concret** pour le viewer (cout, halluciantions, gain de temps), pas juste de la comparaison brute
+- [ ] **Chaque chiffre cite est suivi de son impact concret** pour le viewer (cout, hallucinations, gain de temps), pas juste de la comparaison brute
+- [ ] **Ne jamais inventer un chiffre qualitatif** ("50 fois", "des centaines de") absent de la source — rester qualitatif ("en boucle", "beaucoup") si la source n'est pas precise. Signale 2 fois (2026-04-28, 2026-05-05)
 - [ ] **Chiffres comparatifs en hook** (ratios "Nx moins cher", "X fois plus rapide") : verifier contre la source primaire (site officiel, doc API, page pricing) AVANT de proposer. Pas de Medium / blog post / resume LLM
 - [ ] Pour tout fait extraordinaire : preciser la source ET le statut de verification dans le brief interne ("c'est la declaration officielle du README, pas verifie independamment")
 - [ ] Ne pas mentionner le developpeur ou les details d'implementation sauf si pertinent pour le spectateur

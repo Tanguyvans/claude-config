@@ -26,6 +26,11 @@ Erreurs récurrentes à vérifier AVANT de livrer une cover. Lire à chaque exé
 - [ ] 2-4 mots max. >5 mots = illisible en miniature de grille profil.
 - [ ] Mix Capital + CAPS pour créer un accent visuel ("Anthropic L'ADMET"). Tout en CAPS = bloc lourd.
 - [ ] Accent coloré orange (#f97316) sur le mot-clé final, jamais sur tout le titre.
+- [ ] **Wordplay** : si le nom du sujet a une racine évocatrice (burn, flow, ship, fold...), proposer en 1ère option un wording qui exploite ce wordplay (ex: codeburn → "TES TOKENS BRÛLENT").
+- [ ] **Sujet CLI / outil terminal** : ajouter par défaut une pilule monospace `$ commande` sous le cartouche.
+- [ ] **En auto mode** : éviter les claims combatifs ("BAT", "DÉTRUIT", "ÉCRASE") — préférer descripteurs neutres ou évocateurs. Risque de rejet user.
+- [ ] **En auto mode + 0 réponse au pick** : default candidat calme (bouche fermée, regard caméra) + première option wording. Mentionner le pick dans la sortie.
+- [ ] **Une décision par question** — ne jamais combiner "frame N + sticker A/B/C + cartouche 1/2/3" dans une seule question. Signale 2 fois (2026-04-28, 2026-05-03).
 
 ## Kinetic hook static
 

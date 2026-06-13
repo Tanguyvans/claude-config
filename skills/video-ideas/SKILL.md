@@ -47,7 +47,22 @@ node /Users/tanguyvans/.claude/skills/scrapper/all.js --only=twitter,github > /t
 Variations selon la demande :
 - Demande légère / test : `--only=twitter` uniquement
 - Demande complète : retire `--only`
+
+**Structure réelle du JSON de sortie (`all.js`)** :
+
+```json
+{
+  "platforms": {
+    "twitter": { "posts": [...] },
+    "github": { "repos": [...] }
+  }
+}
+```
+
+Accéder via `data.platforms.twitter.posts` (PAS `data.twitter` ni `data.posts` à la racine). Les scripts individuels (`x.js`, `github.js`) utilisent un format différent (`count` + `posts`/`repos` à la racine).
 - Focus GitHub trending : `--only=github` (0 crédit)
+
+**Fallback pour repos anciens mais trending** : `github.js --days=30` rate les repos créés il y a longtemps qui explosent en stars après coup (ex: `forrestchang/andrej-karpathy-skills` créé en janvier, 90k stars). Si l'user mentionne un repo ou claim "X stars", vérifier via `gh api repos/org/repo | jq '.stargazers_count'` ou `gh search repos NOM --sort=stars`.
 
 ### Étape 3 — Synthétiser en angles vidéo
 

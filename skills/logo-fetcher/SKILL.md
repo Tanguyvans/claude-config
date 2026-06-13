@@ -52,6 +52,13 @@ La plupart des entreprises connues ont un domaine évident :
 | OpenAI | openai.com |
 | Stripe | stripe.com |
 | Netflix | netflix.com |
+| ChatGPT | openai.com |
+| Claude | anthropic.com |
+| Gemini | gemini.google.com |
+| Ollama | ollama.com |
+| Mistral | mistral.ai |
+| Vercel | vercel.com |
+| Lovable | lovable.dev |
 
 Si le logo récupéré via le domaine semble générique ou peu représentatif (icône simpliste, sans branding reconnaissable), essayer les variantes de domaine via l'endpoint `/search` (ex: `brand.ai`, `brand.com`, `brandname.com`). Le logo peut être bien meilleur sur une TLD différente.
 
